@@ -1,13 +1,15 @@
 # Inca Fc API .NET 8
 
 - [Inca Fc API .NET 8](#inca-fc-api-net-8)
-  - [Auth](#auth)
+  - [Autenticacion](#autenticacion)
     - [Register](#register)
       - [Register Request](#register-request)
       - [Register Response](#register-response)
-    - [Login Response](#login-response)
+    - [Login](#login)
+      - [Login Request](#login-request)
+      - [Login Response](#login-response)
 
-## Auth
+## Autenticacion
 
 ### Register
 
@@ -42,7 +44,26 @@ POST {{host}}/auth/register
 }
 ```
 
-### Login Response
+### Login
+
+```js
+POST {{host}}/auth/login
+```
+
+#### Login Request
+
+```json
+{
+    "email": "carmanuel1997@gmail.com",
+    "password": "Carlos123!"
+}
+```
+
+#### Login Response
+
+```js
+200 OK
+```
 
 ```json
 {
