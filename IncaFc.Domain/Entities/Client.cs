@@ -4,7 +4,7 @@ namespace IncaFc.Domain.Entities;
 
 public class Client
 {
-    public Guid ClientId { get; set; }
+    public Guid ClientId { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = null!;
     public ClientType Type { get; set; }
     public string Contact { get; set; } = null!;

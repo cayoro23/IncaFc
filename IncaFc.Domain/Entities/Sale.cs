@@ -4,7 +4,7 @@ namespace IncaFc.Domain.Entities;
 
 public class Sale
 {
-    public Guid SaleId { get; set; }
+    public Guid SaleId { get; set; } = Guid.NewGuid();
     public Guid ClientId { get; set; }
     public DateTime Date { get; set; }
     public SaleState State { get; set; }

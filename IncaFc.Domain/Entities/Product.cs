@@ -2,7 +2,7 @@ namespace IncaFc.Domain.Entities;
 
 public class Product
 {
-    public Guid ProducId { get; set; }
+    public Guid ProducId { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
     public Guid CategoryId { get; set; }
