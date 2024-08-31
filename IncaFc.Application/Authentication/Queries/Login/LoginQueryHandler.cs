@@ -1,33 +1,35 @@
-using ErrorOr;
 using IncaFc.Application.Common.Interfaces.Authentication;
 using IncaFc.Application.Common.Interfaces.Persistence;
-using IncaFc.Application.Services.Authentication.Common;
+using IncaFc.Application.Authentication.Common;
 using IncaFc.Domain.Common.Errors;
 using IncaFc.Domain.Entities;
+using ErrorOr;
+using MediatR;
 
-namespace IncaFc.Application.Services.Authentication.Queries;
+namespace IncaFc.Application.Authentication.Queries.Login;
 
-public class AuthenticationQueryService : IAuthenticationQueryService
+public class LoginQueryHandler :
+    IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
 
-    public AuthenticationQueryService(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+    public LoginQueryHandler(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator)
     {
-        _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
+        _jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    public ErrorOr<AuthenticationResult> Login(string email, string password)
+    public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
         // 1. Validar que el usuario existe
-        if (_userRepository.GetByEmail(email) is not User user)
+        if (_userRepository.GetByEmail(query.Email) is not User user)
         {
             return Errors.Authentication.InvalidCredentials;
         }
 
         // 2. Validar que la contraseña sea correcta
-        if (user.Password != password)
+        if (user.Password != query.Password)
         {
             return Errors.Authentication.InvalidCredentials;
         }
