@@ -1,22 +1,44 @@
 using ErrorOr;
+using FluentValidation;
+using FluentValidation.Results;
 using IncaFc.Application.Authentication.Commands.Register;
 using IncaFc.Application.Authentication.Common;
 using MediatR;
 
 namespace IncaFc.Application.Common.Behaviors;
 
-public class ValidateRegisterCommandBehavior :
-    IPipelineBehavior<RegisterCommand, ErrorOr<AuthenticationResult>>
+public class ValidationBehavior<TRequest, TResponse> :
+    IPipelineBehavior<TRequest, TResponse>
+        where TRequest : IRequest<TResponse>
+        where TResponse : IErrorOr
 {
-    public async Task<ErrorOr<AuthenticationResult>> Handle(
-        RegisterCommand request,
-        RequestHandlerDelegate<ErrorOr<AuthenticationResult>> next,
+    private readonly IValidator<TRequest>? _validator;
+
+    public ValidationBehavior(IValidator<TRequest>? validator = null)
+    {
+        _validator = validator;
+    }
+
+    public async Task<TResponse> Handle(
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        // Se ejecutra antes del controlador
-        var result = await next();
-        // Se ejecutara despues del controlador
+        if (_validator is null)
+        {
+            return await next();
+        }
 
-        return result;
+        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+
+        if (validationResult.IsValid)
+        {
+            return await next();
+        }
+
+        var errors = validationResult.Errors
+            .ConvertAll(ValidationFailure => Error.Validation(ValidationFailure.PropertyName, ValidationFailure.ErrorMessage));
+
+        return (dynamic)errors;
     }
 }
