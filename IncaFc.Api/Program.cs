@@ -1,17 +1,13 @@
-using IncaFc.Api.Common.Errors;
+using IncaFc.Api;
 using IncaFc.Application;
 using IncaFc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
+        .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
-
-    builder.Services.AddControllers();
-
-    builder.Services.AddSingleton<ProblemDetailsFactory, IncaFcProblemDetailsFactory>();
 }
 
 var app = builder.Build();
