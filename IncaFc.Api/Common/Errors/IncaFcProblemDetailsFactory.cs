@@ -1,10 +1,12 @@
 using System.Diagnostics;
+using ErrorOr;
+using IncaFc.Api.Common.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
-namespace IncaFc.Api.Errors;
+namespace IncaFc.Api.Common.Errors;
 
 public sealed class IncaFcProblemDetailsFactory : ProblemDetailsFactory
 {
@@ -24,7 +26,7 @@ public sealed class IncaFcProblemDetailsFactory : ProblemDetailsFactory
         _configure = problemDetailsOptions?.Value?.CustomizeProblemDetails;
     }
 
-    
+
     /// <inheritdoc />
     public override ProblemDetails CreateProblemDetails(
         HttpContext httpContext,
@@ -101,6 +103,12 @@ public sealed class IncaFcProblemDetailsFactory : ProblemDetailsFactory
 
         _configure?.Invoke(new() { HttpContext = httpContext!, ProblemDetails = problemDetails });
 
-        problemDetails.Extensions.Add("customProperty", "customValue");
+        var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
+
+        if (errors is not null)
+        {
+            problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
+        }
+
     }
 }

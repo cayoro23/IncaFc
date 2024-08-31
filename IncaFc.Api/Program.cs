@@ -1,4 +1,4 @@
-using IncaFc.Api.Errors;
+using IncaFc.Api.Common.Errors;
 using IncaFc.Application;
 using IncaFc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;

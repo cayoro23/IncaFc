@@ -1,5 +1,7 @@
+using ErrorOr;
 using IncaFc.Application.Common.Interfaces.Authentication;
 using IncaFc.Application.Common.Interfaces.Persistence;
+using IncaFc.Domain.Common.Errors;
 using IncaFc.Domain.Entities;
 
 namespace IncaFc.Application.Services.Authentication;
@@ -15,12 +17,12 @@ public class AuthenticationService : IAuthenticationService
         _userRepository = userRepository;
     }
 
-    public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+    public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
     {
         // 1. Validar si el usuario no existe
         if (_userRepository.GetByEmail(email) is not null)
         {
-            throw new Exception("Este usuario con el correo electronico ya existe.");
+            return Errors.User.DuplicateEmail;
         }
 
         // 2. Crear usuario (Generar unico ID) & agregarlo en la BD
@@ -43,18 +45,18 @@ public class AuthenticationService : IAuthenticationService
         );
     }
 
-    public AuthenticationResult Login(string email, string password)
+    public ErrorOr<AuthenticationResult> Login(string email, string password)
     {
         // 1. Validar que el usuario existe
         if (_userRepository.GetByEmail(email) is not User user)
         {
-            throw new Exception("EL usuario con el correo no existe");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         // 2. Validar que la contraseña sea correcta
         if (user.Password != password)
         {
-            throw new Exception("Contraseña incorrecta");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         // 3. Crear Jwt token
