@@ -1,4 +1,5 @@
-using IncaFc.Application.Services.Authentication;
+using IncaFc.Application.Services.Authentication.Commands;
+using IncaFc.Application.Services.Authentication.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IncaFc.Application;
@@ -7,7 +8,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IAuthenticationCommandService, AuthenticationCommandService>();
+        services.AddScoped<IAuthenticationQueryService, AuthenticationQueryService>();
 
         return services;    
     }

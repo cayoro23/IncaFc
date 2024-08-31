@@ -1,5 +1,7 @@
 using ErrorOr;
-using IncaFc.Application.Services.Authentication;
+using IncaFc.Application.Services.Authentication.Commands;
+using IncaFc.Application.Services.Authentication.Common;
+using IncaFc.Application.Services.Authentication.Queries;
 using IncaFc.Contracts.Authentication;
 using IncaFc.Domain.Common.Errors;
 using Microsoft.AspNetCore.Mvc;
@@ -9,17 +11,19 @@ namespace IncaFc.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly IAuthenticationCommandService _authenticationCommandService;
+    private readonly IAuthenticationQueryService _authenticationQueryService;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(IAuthenticationCommandService authenticationCommandService, IAuthenticationQueryService authenticationQueryService)
     {
-        _authenticationService = authenticationService;
+        _authenticationCommandService = authenticationCommandService;
+        _authenticationQueryService = authenticationQueryService;
     }
 
     [HttpPost("register")]
     public IActionResult Register(RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(
+        ErrorOr<AuthenticationResult> authResult = _authenticationCommandService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
@@ -34,7 +38,7 @@ public class AuthenticationController : ApiController
     [HttpPost("login")]
     public IActionResult Login(LoginRequest request)
     {
-        var authResult = _authenticationService.Login(
+        var authResult = _authenticationQueryService.Login(
             request.Email,
             request.Password);
 
