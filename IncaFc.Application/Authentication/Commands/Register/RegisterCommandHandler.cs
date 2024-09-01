@@ -44,9 +44,6 @@ public class RegisterCommandHandler :
         // 3. Crear Jwt token
         var token = _jwtTokenGenerator.GenerateToken(user);
 
-        return new AuthenticationResult(
-            user,
-            token
-        );
+        return new AuthenticationResult(user, token);
     }
 }

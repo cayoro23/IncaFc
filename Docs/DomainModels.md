@@ -1,6 +1,6 @@
 # Domain Models
 
-## Productos
+## Productos > Product
 
 - **Producto ID** => `ProductId`: Identificador unico del producto.
 - **Nombre** => `Name`: Nombre del producto.
@@ -19,7 +19,7 @@ public class Product
 }
 ```
 
-## Categorias
+## Categorias > Category
 
 - **Categoria ID** > `CategoryId`: Identificador unico de la categoria.
 - **Nombre** > `Name`: Nombre de la categoria.
@@ -32,7 +32,7 @@ public class Category
 }
 ```
 
-## Marcas
+## Marcas > Brand
 
 - **Marca ID** > `BrandId`: Identificador unico de la marca.
 - **Nombre** > `Name`: Nombre de la marca.
@@ -45,7 +45,7 @@ public class Brand
 }
 ```
 
-## Precios
+## Precios > Price
 
 - **Precio ID** => `PriceId`: Identificador unico del precio.
 - **Producto ID (FK)** => `ProductId`: Clave foranea del producto.
@@ -62,7 +62,7 @@ public class Price
 }
 ```
 
-## Ubicaciones
+## Ubicaciones > Location
 
 - **Ubicacion ID** => `LocationId`: Identificador unico de la ubicaci�n.
 - **Direccion** => `Address`: Direccion de la ubicacion.
@@ -79,7 +79,7 @@ public class Location
 }
 ```
 
-## Clientes
+## Clientes > Client
 
 - **Cliente ID** => `ClientId`: Identificador unico del cliente.
 - **Nombre** => `Name`: Nombre del cliente.
@@ -96,7 +96,7 @@ public class Client
 }
 ```
 
-## Ventas
+## Ventas > Sales
 
 - **Venta ID** => `SaleId`: Identificador unico de la venta.
 - **Cliente ID (FK)** => `ClientId`: Clave foranea del cliente.
@@ -113,7 +113,7 @@ public class Sale
 }
 ```
 
-## Detalle de Ventas
+## Detalle de Ventas SaleDetail
 
 - **DetalleVenta ID** => `aleDetailId`: Identificador unico del detalle de venta.
 - **VentaID (FK)** => `SaleId`: Clave foranea de la venta.
@@ -138,7 +138,7 @@ public class SaleDetail
 }
 ```
 
-## Anulaciones
+## Anulaciones > Cancellation
 
 - **Anulacion ID** => `CancellationId`: Identificador unico de la anulacion.
 - **Venta ID (FK)** => `SaleId`: Clave foranea de la venta anulada.
@@ -155,7 +155,7 @@ public class Cancellation
 }
 ```
 
-## User
+## Usuario > User
 
 - **Usuario ID** => `UserId`: Identificador unico del usuario.
 - **Nombre** => `FirstName`: Nombre del usuario.

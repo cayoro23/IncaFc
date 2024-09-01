@@ -1,0 +1,6 @@
+@host = http://localhost:5180
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MmZkOWFjNi0wMjdhLTQ4MmMtOGFjYi00Yzk1NTJhOTgyYjIiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiJlZGVkZjQ4Ni0wM2E3LTQ4YmUtYmIyNS0yMGM5ZDdjNmE3NGQiLCJleHAiOjE3MjUxNTUwMjUsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.2S9VK7ieVTnZigkeakMU4Rs2oVOfarZVdsiTbcPFvfQ
+
+
+GET {{host}}/category
+Authorization: Bearer {{token}}
