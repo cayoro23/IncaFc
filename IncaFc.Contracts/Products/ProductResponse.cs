@@ -14,14 +14,12 @@ public record ProductResponse(
 );
 
 public record PriceResponse(
-    string Id,
     decimal Amount,
     string Currency,
     string UnitOfMeasure
 );
 
 public record LocationResponse(
-    string Id,
     string Name,
     string Address,
     double Latitude,

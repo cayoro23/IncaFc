@@ -1,20 +1,17 @@
 using IncaFc.Domain.Common.Models;
-using IncaFc.Domain.ProductAggregate.ValueObjects;
 
-namespace IncaFc.Domain.ProductAggregate.Entities;
+namespace IncaFc.Domain.ProductAggregate.ValueObjects;
 
-public sealed class Price : Entity<PriceId>
+public sealed class Price : ValueObject
 {
     public decimal Amount { get; }
     public string Currency { get; }
     public string UnitOfMeasure { get; }
 
     private Price(
-        PriceId priceId,
         decimal amount,
         string currency,
         string unitOfMeasure)
-        : base(priceId)
     {
         Amount = amount;
         Currency = currency;
@@ -24,10 +21,17 @@ public sealed class Price : Entity<PriceId>
     public static Price Create(decimal amount, string currency, string unitOfMeasure)
     {
         return new(
-            PriceId.CreateUnique(),
             amount,
             currency,
             unitOfMeasure
         );
     }
+
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Amount;
+        yield return Currency;
+        yield return UnitOfMeasure;
+    }
+
 }

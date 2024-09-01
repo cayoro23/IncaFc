@@ -2,7 +2,7 @@ using ErrorOr;
 
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Domain.ProductAggregate;
-using IncaFc.Domain.ProductAggregate.Entities;
+using IncaFc.Domain.ProductAggregate.ValueObjects;
 
 using MediatR;
 

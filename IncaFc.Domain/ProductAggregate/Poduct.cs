@@ -1,7 +1,6 @@
 using IncaFc.Domain.BrandAggregate;
 using IncaFc.Domain.CategoryAggregate;
 using IncaFc.Domain.Common.Models;
-using IncaFc.Domain.ProductAggregate.Entities;
 using IncaFc.Domain.ProductAggregate.ValueObjects;
 
 namespace IncaFc.Domain.ProductAggregate;

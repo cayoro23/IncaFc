@@ -4,8 +4,8 @@ using IncaFc.Domain.ProductAggregate;
 
 using Mapster;
 
-using Price = IncaFc.Domain.ProductAggregate.Entities.Price;
-using Location = IncaFc.Domain.ProductAggregate.Entities.Location;
+using Price = IncaFc.Domain.ProductAggregate.ValueObjects.Price;
+using Location = IncaFc.Domain.ProductAggregate.ValueObjects.Location;
 
 namespace IncaFc.Api.Common.Mapping;
 
@@ -23,9 +23,9 @@ public class ProductMappingConfig : IRegister
             .Map(dest => dest.Brand, src => src.Brand.Select(brand => brand.Id.Value));
 
         config.NewConfig<Price, PriceResponse>()
-            .Map(dest => dest.Id, src => src.Id.Value);
+            .Map(dest => dest, src => src);
 
         config.NewConfig<Location, LocationResponse>()
-            .Map(dest => dest.Id, src => src.Id.Value);
+            .Map(dest => dest, src => src);
     }
 }

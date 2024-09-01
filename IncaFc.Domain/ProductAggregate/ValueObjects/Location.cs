@@ -1,9 +1,8 @@
 using IncaFc.Domain.Common.Models;
-using IncaFc.Domain.ProductAggregate.ValueObjects;
 
-namespace IncaFc.Domain.ProductAggregate.Entities;
+namespace IncaFc.Domain.ProductAggregate.ValueObjects;
 
-public sealed class Location : Entity<LocationId>
+public sealed class Location : ValueObject
 {
     public string Name { get; }
     public string Address { get; }
@@ -11,12 +10,10 @@ public sealed class Location : Entity<LocationId>
     public double Longitude { get; }
 
     private Location(
-        LocationId locationId,
         string name,
         string address,
         double latitude,
         double longitude)
-        : base(locationId)
     {
         Name = name;
         Address = address;
@@ -31,11 +28,18 @@ public sealed class Location : Entity<LocationId>
         double longitude)
     {
         return new(
-            LocationId.CreateUnique(),
             name,
             address,
             latitude,
             longitude
         );
+    }
+
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Name;
+        yield return Address;
+        yield return Latitude;
+        yield return Longitude;
     }
 }
