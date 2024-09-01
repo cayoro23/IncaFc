@@ -1,5 +1,5 @@
 @host = http://localhost:5180
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzhmN2UwNC01OGViLTQ0MDYtOTM4MC0yZDUzMjk2ZWI3NmIiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiJmMzY0NTNjNy1mOWU0LTRlYmEtOWRkZS1hNGNhMjk1MzI4MWYiLCJleHAiOjE3MjUyMjk2MjYsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.jxhqEDU95a9k60sYQCGMOkdJmUln81KI9NtjAEC4VSI
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MjNiMGZjZi1jMDI4LTQyZTAtYWU1Yy01ODM5YmZlMGQxNmMiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiI1MTJjMmZhMC1jYzlmLTQzYTQtYWU4My0wZmE0ZTY5NWM2YWYiLCJleHAiOjE3MjUyMzI0NTMsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.Uj-hLLolMPoIPr-7o5FXcOoXu0_GtgAXzJYkDltwt98
 
 POST {{host}}/products
 Content-Type: application/json
@@ -8,13 +8,16 @@ Authorization: Bearer {{token}}
 {
   "Name": "Laptop X200",
   "Description": "Una laptop de alto rendimiento con 16GB de RAM y 512GB de SSD.",
+  "Stock": 50,
   "Price": {
     "Amount": 1200.99,
-    "Currency": "USD",
+    "Currency": "PEN",
     "UnitOfMeasure": "Unidad"
   },
   "Location": {
-    "Address": "Avenida Tech 123, Silicon Valley, CA",
-    "Stock": 50
+    "Name": "Tienda Don Ramon",
+    "Address": "Avenida Pucallpa 1213",
+    "latitude": 52.520008,
+    "longitude": 13.404954
   }
 }

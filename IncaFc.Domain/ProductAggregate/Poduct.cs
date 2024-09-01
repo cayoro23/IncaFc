@@ -12,6 +12,7 @@ public sealed class Product : AggregateRoot<ProductId>
     private readonly List<Brand> _brands = [];
     public string Name { get; }
     public string Description { get; }
+    public int Stock { get; }
     public IReadOnlyList<Category> Category => _categories.AsReadOnly();
     public IReadOnlyList<Brand> Brand => _brands.AsReadOnly();
     public Price Price { get; }
@@ -23,6 +24,7 @@ public sealed class Product : AggregateRoot<ProductId>
         ProductId productId,
         string name,
         string description,
+        int stock,
         Price price,
         Location location,
         List<Category> category,
@@ -34,6 +36,7 @@ public sealed class Product : AggregateRoot<ProductId>
     {
         Name = name;
         Description = description;
+        Stock = stock;
         Price = price;
         Location = location;
         _categories = category;
@@ -45,6 +48,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public static Product Create(
         string name,
         string description,
+        int stock,
         Price price,
         Location location,
         List<Category>? category,
@@ -55,6 +59,7 @@ public sealed class Product : AggregateRoot<ProductId>
             ProductId.CreateUnique(),
             name,
             description,
+            stock,
             price,
             location,
             category ?? [],

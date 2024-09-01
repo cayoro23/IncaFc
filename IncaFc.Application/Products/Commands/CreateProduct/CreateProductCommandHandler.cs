@@ -1,7 +1,9 @@
 using ErrorOr;
+
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Domain.ProductAggregate;
 using IncaFc.Domain.ProductAggregate.Entities;
+
 using MediatR;
 
 namespace IncaFc.Application.Products.Commands.CreateProduct;
@@ -25,12 +27,13 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         var product = Product.Create(
             name: request.Name,
             description: request.Description,
+            stock: request.Stock,
             price: Price.Create(
                 request.Price.Amount,
                 request.Price.Currency,
                 request.Price.UnitOfMeasure
             ),
-            location: Location.Create(request.Location.Address, request.Location.Stock),
+            location: Location.Create(request.Location.Name, request.Location.Address, request.Location.Latitude, request.Location.Longitude),
             category: [],
             brands: []
         );

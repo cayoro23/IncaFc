@@ -7,6 +7,7 @@ namespace IncaFc.Application.Products.Commands.CreateProduct;
 public record CreateProductCommand(
     string Name,
     string Description,
+    int Stock,
     PriceCommand Price,
     LocationCommand Location,
     CategoryCommand? Category,
@@ -15,7 +16,7 @@ public record CreateProductCommand(
 
 public record PriceCommand(decimal Amount, string Currency, string UnitOfMeasure);
 
-public record LocationCommand(string Address, int Stock);
+public record LocationCommand(string Name, string Address, double Latitude, double Longitude);
 
 public record CategoryCommand(string Name);
 
