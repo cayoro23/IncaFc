@@ -1,0 +1,20 @@
+@host = http://localhost:5180
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzhmN2UwNC01OGViLTQ0MDYtOTM4MC0yZDUzMjk2ZWI3NmIiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiJmMzY0NTNjNy1mOWU0LTRlYmEtOWRkZS1hNGNhMjk1MzI4MWYiLCJleHAiOjE3MjUyMjk2MjYsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.jxhqEDU95a9k60sYQCGMOkdJmUln81KI9NtjAEC4VSI
+
+POST {{host}}/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Name": "Laptop X200",
+  "Description": "Una laptop de alto rendimiento con 16GB de RAM y 512GB de SSD.",
+  "Price": {
+    "Amount": 1200.99,
+    "Currency": "USD",
+    "UnitOfMeasure": "Unidad"
+  },
+  "Location": {
+    "Address": "Avenida Tech 123, Silicon Valley, CA",
+    "Stock": 50
+  }
+}
