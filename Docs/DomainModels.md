@@ -11,11 +11,16 @@
 ```csharp
 public class Product
 {
-    public Guid ProductId { get; set; }
+    public Guid ProducId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public Guid CategoryId { get; set; }
     public Guid BrandId { get; set; }
+
+    public Category Category { get; set; }
+    public Brand Brand { get; set; }
+    public List<Price> Prices { get; set; }
+    public List<Location> Locations { get; set; }
 }
 ```
 
@@ -29,6 +34,8 @@ public class Category
 {
     public Guid CategoryId { get; set; }
     public string Name { get; set; }
+
+    public List<Product> Products { get; set; }
 }
 ```
 
@@ -42,6 +49,8 @@ public class Brand
 {
     public Guid BrandId { get; set; }
     public string Name { get; set; }
+
+    public List<Product> Products { get; set; }
 }
 ```
 
@@ -59,6 +68,8 @@ public class Price
     public Guid ProductId { get; set; }
     public decimal PriceAmount { get; set; }
     public UnitOfMeasure Unit { get; set; }
+
+    public Product Product { get; set; }
 }
 ```
 
@@ -76,6 +87,8 @@ public class Location
     public string Address { get; set; }
     public Guid ProductId { get; set; }
     public int Stock { get; set; }
+
+    public Product Product { get; set; }
 }
 ```
 
@@ -110,6 +123,9 @@ public class Sale
     public Guid ClientId { get; set; }
     public DateTime Date { get; set; }
     public SaleState State { get; set; }
+
+    public Client Client { get; set; }
+    public List<SaleDetail> SaleDetails { get; set; }
 }
 ```
 
@@ -135,6 +151,9 @@ public class SaleDetail
     public decimal TaxableBase { get; set; }
     public decimal IGV { get; set; }
     public decimal Total { get; set; }
+
+    public Sale Sale { get; set; }
+    public Product Product { get; set; }
 }
 ```
 
@@ -152,6 +171,8 @@ public class Cancellation
     public Guid SaleId { get; set; }
     public string Reason { get; set; }
     public DateTime CancellationDate { get; set; }
+
+    public Sale Sale { get; set; }
 }
 ```
 

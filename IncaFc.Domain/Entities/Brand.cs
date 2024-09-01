@@ -2,8 +2,9 @@ namespace IncaFc.Domain.Entities;
 
 public class Brand
 {
-    public Guid BranId { get; set; } = Guid.NewGuid();
+    public Guid BrandId { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = null!;
-
     public List<Product> Products { get; set; } = null!;
+    public DateTime CreatedDateTime { get; set; }
+    public DateTime UpdatedDateTime { get; set; }
 }
