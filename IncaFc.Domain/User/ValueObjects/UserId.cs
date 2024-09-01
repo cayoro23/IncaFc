@@ -1,17 +1,17 @@
 using IncaFc.Domain.Common.Models;
 
-namespace IncaFc.Domain.Location.ValueObjects;
+namespace IncaFc.Domain.Product.ValueObjects;
 
-public class LocationId : ValueObject
+public class UserId : ValueObject
 {
     public Guid Value { get; }
 
-    private LocationId(Guid value)
+    private UserId(Guid value)
     {
         Value = value;
     }
 
-    public static LocationId CreateUnique()
+    public static UserId CreateUnique()
     {
         return new(Guid.NewGuid());
     }

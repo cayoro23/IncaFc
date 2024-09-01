@@ -1,8 +1,6 @@
 using IncaFc.Domain.Brand.ValueObjects;
 using IncaFc.Domain.Category.ValueObjects;
 using IncaFc.Domain.Common.Models;
-using IncaFc.Domain.Location.ValueObjects;
-using IncaFc.Domain.Price.ValueObjects;
 using IncaFc.Domain.Product.ValueObjects;
 
 namespace IncaFc.Domain.Product;
@@ -13,8 +11,8 @@ public sealed class Product : AggregateRoot<ProductId>
     private readonly List<BrandId> _brand = [];
     public string Name { get; }
     public string Description { get; }
-    public IReadOnlyList<CategoryId> CategoryIds => _categories;
-    public IReadOnlyList<BrandId> BrandIds => _brand;
+    public IReadOnlyList<CategoryId> CategoryIds => _categories.AsReadOnly();
+    public IReadOnlyList<BrandId> BrandIds => _brand.AsReadOnly();
     public PriceId PriceId { get; }
     public LocationId LocationId { get; }
     public DateTime CreatedDateTime { get; }

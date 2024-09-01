@@ -1,8 +1,6 @@
 using ErrorOr;
 using FluentValidation;
 using FluentValidation.Results;
-using IncaFc.Application.Authentication.Commands.Register;
-using IncaFc.Application.Authentication.Common;
 using MediatR;
 
 namespace IncaFc.Application.Common.Behaviors;

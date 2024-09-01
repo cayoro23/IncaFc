@@ -1,17 +1,17 @@
 using IncaFc.Domain.Common.Models;
 
-namespace IncaFc.Domain.Price.ValueObjects;
+namespace IncaFc.Domain.Sale.ValueObjects;
 
-public class PriceId : ValueObject
+public class SaleDetailId : ValueObject
 {
     public Guid Value { get; }
 
-    private PriceId(Guid value)
+    private SaleDetailId(Guid value)
     {
         Value = value;
     }
 
-    public static PriceId CreateUnique()
+    public static SaleDetailId CreateUnique()
     {
         return new(Guid.NewGuid());
     }
