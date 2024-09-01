@@ -1,15 +1,14 @@
+using ErrorOr;
+using IncaFc.Application.Authentication.Common;
 using IncaFc.Application.Common.Interfaces.Authentication;
 using IncaFc.Application.Common.Interfaces.Persistence;
-using IncaFc.Application.Authentication.Common;
 using IncaFc.Domain.Common.Errors;
-using IncaFc.Domain.Entities;
-using ErrorOr;
+using IncaFc.Domain.UserAggregate;
 using MediatR;
 
 namespace IncaFc.Application.Authentication.Queries.Login;
 
-public class LoginQueryHandler :
-    IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
+public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
@@ -20,7 +19,10 @@ public class LoginQueryHandler :
         _jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
+    public async Task<ErrorOr<AuthenticationResult>> Handle(
+        LoginQuery query,
+        CancellationToken cancellationToken
+    )
     {
         await Task.CompletedTask;
 
@@ -39,9 +41,6 @@ public class LoginQueryHandler :
         // 3. Crear Jwt token
         var token = _jwtTokenGenerator.GenerateToken(user);
 
-        return new AuthenticationResult(
-            user,
-            token
-        );
+        return new AuthenticationResult(user, token);
     }
 }

@@ -1,7 +1,7 @@
 namespace IncaFc.Contracts.Authentication;
 
 public record AuthenticationResponse(
-    Guid UserId,
+    string Id,
     string FirstName,
     string LastName,
     string Email,

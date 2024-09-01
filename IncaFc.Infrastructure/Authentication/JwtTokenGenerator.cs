@@ -3,7 +3,9 @@ using System.Security.Claims;
 using System.Text;
 using IncaFc.Application.Common.Interfaces.Authentication;
 using IncaFc.Application.Common.Interfaces.Services;
-using IncaFc.Domain.Entities;
+using IncaFc.Domain.UserAggregate;
+using IncaFc.Domain.UserAggregate.ValueObjects;
+
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -23,14 +25,13 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     public string GenerateToken(User user)
     {
         var signingCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
-                SecurityAlgorithms.HmacSha256
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
+            SecurityAlgorithms.HmacSha256
         );
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

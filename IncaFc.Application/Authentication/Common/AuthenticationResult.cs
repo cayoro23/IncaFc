@@ -1,4 +1,4 @@
-using IncaFc.Domain.Entities;
+using IncaFc.Domain.UserAggregate;
 
 namespace IncaFc.Application.Authentication.Common;
 

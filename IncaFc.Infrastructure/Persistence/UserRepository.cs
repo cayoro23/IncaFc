@@ -1,5 +1,5 @@
 using IncaFc.Application.Common.Interfaces.Persistence;
-using IncaFc.Domain.Entities;
+using IncaFc.Domain.UserAggregate;
 
 namespace IncaFc.Infrastructure.Persistence;
 
