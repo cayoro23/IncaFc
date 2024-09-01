@@ -1,6 +1,7 @@
 using ErrorOr;
+
 using FluentValidation;
-using FluentValidation.Results;
+
 using MediatR;
 
 namespace IncaFc.Application.Common.Behaviors;
@@ -35,7 +36,7 @@ public class ValidationBehavior<TRequest, TResponse> :
         }
 
         var errors = validationResult.Errors
-            .ConvertAll(ValidationFailure => Error.Validation(ValidationFailure.PropertyName, ValidationFailure.ErrorMessage));
+            .ConvertAll(validationFailure => Error.Validation(validationFailure.PropertyName, validationFailure.ErrorMessage));
 
         return (dynamic)errors;
     }

@@ -1,20 +1,21 @@
-using IncaFc.Domain.BrandAggregate.ValueObjects;
-using IncaFc.Domain.CategoryAggregate.ValueObjects;
+using IncaFc.Domain.BrandAggregate;
+using IncaFc.Domain.CategoryAggregate;
 using IncaFc.Domain.Common.Models;
+using IncaFc.Domain.ProductAggregate.Entities;
 using IncaFc.Domain.ProductAggregate.ValueObjects;
 
 namespace IncaFc.Domain.ProductAggregate;
 
 public sealed class Product : AggregateRoot<ProductId>
 {
-    private readonly List<CategoryId> _categories = [];
-    private readonly List<BrandId> _brand = [];
+    private readonly List<Category> _categories = [];
+    private readonly List<Brand> _brands = [];
     public string Name { get; }
     public string Description { get; }
-    public IReadOnlyList<CategoryId> CategoryIds => _categories.AsReadOnly();
-    public IReadOnlyList<BrandId> BrandIds => _brand.AsReadOnly();
-    public PriceId PriceId { get; }
-    public LocationId LocationId { get; }
+    public IReadOnlyList<Category> Category => _categories.AsReadOnly();
+    public IReadOnlyList<Brand> Brand => _brands.AsReadOnly();
+    public Price Price { get; }
+    public Location Location { get; }
     public DateTime CreatedDateTime { get; }
     public DateTime UpdatedDateTime { get; }
 
@@ -22,16 +23,21 @@ public sealed class Product : AggregateRoot<ProductId>
         ProductId productId,
         string name,
         string description,
-        PriceId priceId,
-        LocationId locationId,
+        Price price,
+        Location location,
+        List<Category> category,
+        List<Brand> brands,
         DateTime createdDateTime,
-        DateTime updatedDateTime)
+        DateTime updatedDateTime
+    )
         : base(productId)
     {
         Name = name;
         Description = description;
-        PriceId = priceId;
-        LocationId = locationId;
+        Price = price;
+        Location = location;
+        _categories = category;
+        _brands = brands;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
@@ -39,15 +45,20 @@ public sealed class Product : AggregateRoot<ProductId>
     public static Product Create(
         string name,
         string description,
-        PriceId priceId,
-        LocationId locationId)
+        Price price,
+        Location location,
+        List<Category>? category,
+        List<Brand>? brands
+    )
     {
         return new Product(
             ProductId.CreateUnique(),
             name,
             description,
-            priceId,
-            locationId,
+            price,
+            location,
+            category ?? [],
+            brands ?? [],
             DateTime.UtcNow,
             DateTime.UtcNow
         );
