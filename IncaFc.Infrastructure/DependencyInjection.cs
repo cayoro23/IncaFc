@@ -1,11 +1,15 @@
 using System.Text;
+
 using IncaFc.Application.Common.Interfaces.Authentication;
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Application.Common.Interfaces.Services;
 using IncaFc.Infrastructure.Authentication;
 using IncaFc.Infrastructure.Persistence;
+using IncaFc.Infrastructure.Persistence.Repositories;
 using IncaFc.Infrastructure.Services;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -28,8 +32,10 @@ public static class DependencyInjection
 
     public static IServiceCollection AddPersistance(this IServiceCollection services)
     {
+        services.AddDbContext<IncaFcDbContext>(options => 
+            options.UseSqlServer());
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IProductRepository, PRoductRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }

@@ -16,6 +16,11 @@ public class ProductId : ValueObject
         return new(Guid.NewGuid());
     }
 
+    public static ProductId Create(Guid value)
+    {
+        return new ProductId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

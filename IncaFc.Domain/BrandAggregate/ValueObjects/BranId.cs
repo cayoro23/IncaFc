@@ -4,7 +4,7 @@ namespace IncaFc.Domain.BrandAggregate.ValueObjects;
 
 public class BrandId : ValueObject
 {
-    public Guid Value { get; }
+    public Guid Value { get; private set; }
 
     private BrandId(Guid value)
     {
@@ -14,6 +14,11 @@ public class BrandId : ValueObject
     public static BrandId CreateUnique()
     {
         return new(Guid.NewGuid());
+    }
+
+    public static BrandId Create(Guid value)
+    {
+        return new BrandId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

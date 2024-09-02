@@ -5,9 +5,9 @@ namespace IncaFc.Domain.BrandAggregate;
 
 public sealed class Brand : AggregateRoot<BrandId>
 {
-    public string Name { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string Name { get; private set; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Brand(
         BrandId brandId,
@@ -31,4 +31,9 @@ public sealed class Brand : AggregateRoot<BrandId>
             DateTime.UtcNow
         );
     }
+
+#pragma warning disable CS8618 
+    private Brand()
+    { }
+#pragma warning restore CS8618 
 }

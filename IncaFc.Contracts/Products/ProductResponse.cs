@@ -7,8 +7,8 @@ public record ProductResponse(
     int Stock,
     PriceResponse Price,
     LocationResponse Location,
-    List<string> Category,
-    List<string> Brand,
+    List<string> CategoryIds,
+    List<string> BrandIds,
     DateTime CreatedDateTime,
     DateTime UpdatedDateTime
 );

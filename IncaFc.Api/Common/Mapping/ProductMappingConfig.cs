@@ -19,8 +19,8 @@ public class ProductMappingConfig : IRegister
 
         config.NewConfig<Product, ProductResponse>()
             .Map(dest => dest.Id, src => src.Id.Value)
-            .Map(dest => dest.Category, src => src.Category.Select(category => category.Id.Value))
-            .Map(dest => dest.Brand, src => src.Brand.Select(brand => brand.Id.Value));
+            .Map(dest => dest.CategoryIds, src => src.CategoryIds.Select(categoryId => categoryId.Value))
+            .Map(dest => dest.BrandIds, src => src.BrandIds.Select(brandId => brandId.Value));
 
         config.NewConfig<Price, PriceResponse>()
             .Map(dest => dest, src => src);

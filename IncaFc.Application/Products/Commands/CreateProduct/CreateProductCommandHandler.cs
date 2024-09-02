@@ -34,8 +34,8 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
                 request.Price.UnitOfMeasure
             ),
             location: Location.Create(request.Location.Name, request.Location.Address, request.Location.Latitude, request.Location.Longitude),
-            category: [],
-            brands: []
+            categoryIds: [],
+            brandIds: []
         );
 
         // Persistir Producto

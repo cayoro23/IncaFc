@@ -5,9 +5,9 @@ namespace IncaFc.Domain.CategoryAggregate;
 
 public sealed class Category : AggregateRoot<CategoryId>
 {
-    public string Name { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string Name { get; private set; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Category(
         CategoryId categoryId,
@@ -31,4 +31,8 @@ public sealed class Category : AggregateRoot<CategoryId>
             DateTime.UtcNow
         );
     }
+#pragma warning disable CS8618
+    private Category()
+    { }
+#pragma warning restore CS8618
 }

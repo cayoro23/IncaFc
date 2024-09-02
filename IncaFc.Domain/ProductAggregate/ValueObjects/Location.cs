@@ -42,4 +42,9 @@ public sealed class Location : ValueObject
         yield return Latitude;
         yield return Longitude;
     }
+
+#pragma warning disable CS8618
+    private Location()
+    { }
+#pragma warning restore CS8618
 }

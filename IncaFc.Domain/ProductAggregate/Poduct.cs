@@ -1,23 +1,23 @@
-using IncaFc.Domain.BrandAggregate;
-using IncaFc.Domain.CategoryAggregate;
 using IncaFc.Domain.Common.Models;
+using IncaFc.Domain.BrandAggregate.ValueObjects;
+using IncaFc.Domain.CategoryAggregate.ValueObjects;
 using IncaFc.Domain.ProductAggregate.ValueObjects;
 
 namespace IncaFc.Domain.ProductAggregate;
 
 public sealed class Product : AggregateRoot<ProductId>
 {
-    private readonly List<Category> _categories = [];
-    private readonly List<Brand> _brands = [];
-    public string Name { get; }
-    public string Description { get; }
-    public int Stock { get; }
-    public IReadOnlyList<Category> Category => _categories.AsReadOnly();
-    public IReadOnlyList<Brand> Brand => _brands.AsReadOnly();
-    public Price Price { get; }
-    public Location Location { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    private readonly List<CategoryId> _categoryIds = new();
+    private readonly List<BrandId> _brandIds = new();
+    public string Name { get; private set; }
+    public string Description { get; private set; }
+    public int Stock { get; private set; }
+    public IReadOnlyList<CategoryId> CategoryIds => _categoryIds.AsReadOnly();
+    public IReadOnlyList<BrandId> BrandIds => _brandIds.AsReadOnly();
+    public Price Price { get; private set; }
+    public Location Location { get; private set; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Product(
         ProductId productId,
@@ -26,8 +26,8 @@ public sealed class Product : AggregateRoot<ProductId>
         int stock,
         Price price,
         Location location,
-        List<Category> category,
-        List<Brand> brands,
+        List<CategoryId> categoryIds,
+        List<BrandId> brandIds,
         DateTime createdDateTime,
         DateTime updatedDateTime
     )
@@ -38,8 +38,8 @@ public sealed class Product : AggregateRoot<ProductId>
         Stock = stock;
         Price = price;
         Location = location;
-        _categories = category;
-        _brands = brands;
+        _categoryIds = categoryIds;
+        _brandIds = brandIds;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
@@ -50,8 +50,8 @@ public sealed class Product : AggregateRoot<ProductId>
         int stock,
         Price price,
         Location location,
-        List<Category>? category,
-        List<Brand>? brands
+        List<CategoryId>? categoryIds,
+        List<BrandId>? brandIds
     )
     {
         return new Product(
@@ -61,10 +61,15 @@ public sealed class Product : AggregateRoot<ProductId>
             stock,
             price,
             location,
-            category ?? [],
-            brands ?? [],
+            categoryIds ?? [],
+            brandIds ?? [],
             DateTime.UtcNow,
             DateTime.UtcNow
         );
     }
+
+#pragma warning disable CS8618
+    private Product()
+    { }
+#pragma warning restore CS8618
 }

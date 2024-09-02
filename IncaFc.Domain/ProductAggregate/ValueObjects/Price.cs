@@ -34,4 +34,9 @@ public sealed class Price : ValueObject
         yield return UnitOfMeasure;
     }
 
+#pragma warning disable CS8618
+    private Price()
+    { }
+#pragma warning restore CS8618
+
 }

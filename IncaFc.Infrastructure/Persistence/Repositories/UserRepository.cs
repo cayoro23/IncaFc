@@ -1,7 +1,7 @@
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Domain.UserAggregate;
 
-namespace IncaFc.Infrastructure.Persistence;
+namespace IncaFc.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
