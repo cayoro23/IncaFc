@@ -14,9 +14,9 @@ public class CustomerRepository : ICustomerRepository
         _dbContext = dbContext;
     }
 
-    public void Add(Customer product)
+    public void Add(Customer customer)
     {
-        _dbContext.Add(product);
+        _dbContext.Add(customer);
         _dbContext.SaveChanges();
     }
 
@@ -25,9 +25,9 @@ public class CustomerRepository : ICustomerRepository
         return await _dbContext.Customers.ToListAsync();
     }
 
-    public async Task<Customer?> GetByIdInMemoryAsync(Guid productId)
+    public async Task<Customer?> GetByIdInMemoryAsync(Guid customerId)
     {
-        var products = await GetAllCustomersAsync(); // Usar el método anterior para obtener todos los productos
-        return products.FirstOrDefault(p => p.Id.Value == productId);
+        var customers = await GetAllCustomersAsync();
+        return customers.FirstOrDefault(p => p.Id.Value == customerId);
     }
 }

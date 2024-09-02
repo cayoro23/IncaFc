@@ -1,7 +1,25 @@
 @host = http://localhost:5180
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ODI2OGQ1NC02YmYxLTQ5MzQtOGNmMi1jMWE2NzZkNDEzZDciLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiI4OTEwZmVlMy0xMzI4LTQxMjctODQ3Ny1kNWU5MDgwYTJlYzUiLCJleHAiOjE3MjUyODIzNzYsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.eATZDHSbytx0aNsnUJuuPIDvzE_f85TfWxrlBpOWHtM
-@productId = eac9421f-efea-4d8c-9d2c-6288621301b8
 
-GET {{host}}/product/{{productId}}
+POST {{host}}/sale
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+{
+  "Name": "Venta #1",
+  "State": true,
+  "CustomerId": "b2c5f0e4-3bfa-4c2d-9e5a-7d2c3e0d2f6a",
+  "UserId": "f2d7b1e3-4c9a-4d9c-9b7a-8f2e9c3b6a2f",
+  "SaleDetail": {
+    "Id": "d4e7a3b5-4a1b-4d8a-8e5a-6f9d3e2a5c8f",
+    "Igv": 18.00,
+    "ProductIds": [
+      {
+        "Value": "eac9421f-efea-4d8c-9d2c-6288621301b8"
+      },
+      {
+        "Value": "6eab99f8-fcc8-485e-a85d-6dce014df85a"
+      }
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+@host = http://localhost:5180
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OWM2MzdjOC01YmQ1LTRiNjctOGEyZC1jNmQzYjc5NWU0MmUiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiIxNGFiOGU1ZS1hMTM2LTQxZDctODZlOS05NmU3MmNiMDI0OWMiLCJleHAiOjE3MjUyNzExMDQsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.9JvC1Pd_I-PjhIz2GzML3jELwzFD2w1AfKh09DARLyo
+
+POST {{host}}/product/multiple
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+[
+    {
+        "name": "Laptop X200",
+        "description": "Laptop potente con procesador Intel i7 y 16GB RAM.",
+        "stock": 25,
+        "price": {
+            "amount": 1200.50,
+            "currency": "USD",
+            "unitOfMeasure": "unit"
+        },
+        "location": {
+            "name": "Almacén Central",
+            "address": "123 Calle Principal, Ciudad Capital",
+            "latitude": 40.712776,
+            "longitude": -74.005974
+        }
+    },
+    {
+        "name": "Smartphone S10",
+        "description": "Smartphone con pantalla OLED de 6.5 pulgadas y cámara de alta resolución.",
+        "stock": 100,
+        "price": {
+            "amount": 799.99,
+            "currency": "USD",
+            "unitOfMeasure": "unit"
+        },
+        "location": {
+            "name": "Sucursal Norte",
+            "address": "456 Avenida Norte, Ciudad Norte",
+            "latitude": 34.052235,
+            "longitude": -118.243683
+        }
+    },
+    {
+        "name": "Auriculares Inalámbricos",
+        "description": "Auriculares con cancelación de ruido y conexión Bluetooth.",
+        "stock": 200,
+        "price": {
+            "amount": 199.99,
+            "currency": "USD",
+            "unitOfMeasure": "unit"
+        },
+        "location": {
+            "name": "Almacén Oeste",
+            "address": "789 Camino Oeste, Pueblo Oeste",
+            "latitude": 51.507351,
+            "longitude": -0.127758
+        }
+    },
+    {
+        "name": "Monitor 4K Ultra HD",
+        "description": "Monitor 4K Ultra HD de 27 pulgadas con HDR.",
+        "stock": 50,
+        "price": {
+            "amount": 349.99,
+            "currency": "USD",
+            "unitOfMeasure": "unit"
+        },
+        "location": {
+            "name": "Almacén Este",
+            "address": "321 Calle Este, Ciudad Este",
+            "latitude": 48.856613,
+            "longitude": 2.352222
+        }
+    },
+    {
+        "name": "Teclado Mecánico",
+        "description": "Teclado mecánico con retroiluminación RGB.",
+        "stock": 75,
+        "price": {
+            "amount": 89.99,
+            "currency": "USD",
+            "unitOfMeasure": "unit"
+        },
+        "location": {
+            "name": "Sucursal Sur",
+            "address": "654 Avenida Sur, Ciudad Sur",
+            "latitude": 35.689487,
+            "longitude": 139.691711
+        }
+    }
+]
+

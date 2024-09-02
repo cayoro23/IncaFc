@@ -1,3 +1,4 @@
+
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Domain.ProductAggregate;
 
@@ -20,6 +21,12 @@ public class ProductRepository : IProductRepository
         _dbContext.SaveChanges();
     }
 
+    public void AddRange(IEnumerable<Product> products)
+    {
+        _dbContext.Products.AddRange(products);
+        _dbContext.SaveChanges();
+    }
+
     public async Task<List<Product>> GetAllProductsAsync()
     {
         return await _dbContext.Products.ToListAsync();
@@ -27,7 +34,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product?> GetByIdInMemoryAsync(Guid productId)
     {
-        var products = await GetAllProductsAsync(); // Usar el método anterior para obtener todos los productos
+        var products = await GetAllProductsAsync();
         return products.FirstOrDefault(p => p.Id.Value == productId);
     }
 }

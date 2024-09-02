@@ -6,6 +6,7 @@ using Mapster;
 
 using Price = IncaFc.Domain.ProductAggregate.ValueObjects.Price;
 using Location = IncaFc.Domain.ProductAggregate.ValueObjects.Location;
+using IncaFc.Application.Products.Commands.CreateProducts;
 
 namespace IncaFc.Api.Common.Mapping;
 
@@ -13,8 +14,7 @@ public class ProductMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config
-            .NewConfig<CreateProductRequest, CreateProductCommand>()
+        config.NewConfig<CreateProductRequest, CreateProductCommand>()
             .Map(dest => dest, src => src);
 
         config.NewConfig<Product, ProductResponse>()
@@ -27,5 +27,8 @@ public class ProductMappingConfig : IRegister
 
         config.NewConfig<Location, LocationResponse>()
             .Map(dest => dest, src => src);
+
+        config.NewConfig<List<CreateProductRequest>, CreateProductsCommand>()
+            .Map(dest => dest.Products, src => src.Select(item => item.Adapt<CreateProductItem>()).ToList());
     }
 }

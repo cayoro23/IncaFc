@@ -1,4 +1,4 @@
-namespace IncaFc.Contracts.Customer;
+namespace IncaFc.Contracts.Customers;
 
 public record CustomerResponse(
     string Id,

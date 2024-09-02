@@ -3,7 +3,6 @@ using System.Text;
 using IncaFc.Application.Common.Interfaces.Authentication;
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Application.Common.Interfaces.Services;
-using IncaFc.Domain.CustomerAggregate;
 using IncaFc.Infrastructure.Authentication;
 using IncaFc.Infrastructure.Persistence;
 using IncaFc.Infrastructure.Persistence.Repositories;
@@ -33,12 +32,13 @@ public static class DependencyInjection
 
     public static IServiceCollection AddPersistance(this IServiceCollection services)
     {
-        services.AddDbContext<IncaFcDbContext>(options => 
+        services.AddDbContext<IncaFcDbContext>(options =>
             options.UseSqlServer("Server=localhost;Database=IncaFc2;User Id=sa;Password=carlos123!;TrustServerCertificate=true"));
-            
+
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<ISaleRepository, SaleRepository>();
 
         return services;
     }

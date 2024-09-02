@@ -1,5 +1,5 @@
 using IncaFc.Application.Customers.Commands.CreateCustomer;
-using IncaFc.Contracts.Customer;
+using IncaFc.Contracts.Customers;
 using IncaFc.Domain.CustomerAggregate;
 
 using Mapster;

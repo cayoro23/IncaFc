@@ -1,0 +1,13 @@
+@host = http://localhost:5180
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NjY3ZjRhMC1mYjI5LTRhYmUtYTc3MC1mYTkwMjJiYTQ3N2EiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiI4ZTRhM2JhZC0yZGQ3LTQ3MTctODQyMC0yNzQzYzA4OWMxYjUiLCJleHAiOjE3MjUzMDM3NjgsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.dfTjrPRtmrEW8-pHuucPiK2NUtJIsN7HcuIGyNSW83c
+@saleId = 6d931849-b5b4-4a75-9d93-29a22d68d921
+
+PUT {{host}}/sale/{{saleId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "State": false,
+  "Reason": "No quizo ese producto"
+}
+

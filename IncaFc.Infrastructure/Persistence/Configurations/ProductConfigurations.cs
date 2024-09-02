@@ -61,6 +61,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.HasKey(m => m.Id);
 
         builder.Property(m => m.Id)
+            .ValueGeneratedNever()
             .HasConversion(
                 id => id.Value,
                 value => ProductId.Create(value));

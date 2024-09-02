@@ -4,6 +4,6 @@ namespace IncaFc.Application.Common.Interfaces.Persistence;
 
 public interface ICustomerRepository
 {
-    void Add(Customer product);
-    Task<Customer?> GetByIdInMemoryAsync(Guid productId);
+    void Add(Customer customer);
+    Task<Customer?> GetByIdInMemoryAsync(Guid customerId);
 }

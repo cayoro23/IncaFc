@@ -20,6 +20,7 @@ public class CustomerConfigurations : IEntityTypeConfiguration<Customer>
         builder.HasKey(m => m.Id);
 
         builder.Property(m => m.Id)
+            .ValueGeneratedNever()
             .HasConversion(
                 id => id.Value,
                 value => CustomerId.Create(value));

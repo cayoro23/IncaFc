@@ -1,7 +1,7 @@
 namespace IncaFc.Contracts.Products;
 
 public record ProductResponse(
-    string Id,
+    Guid Id,
     string Name,
     string Description,
     int Stock,

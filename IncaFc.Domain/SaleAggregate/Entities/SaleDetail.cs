@@ -6,29 +6,38 @@ namespace IncaFc.Domain.SaleAggregate.Entities;
 
 public sealed class SaleDetail : AggregateRoot<SaleDetailId, Guid>
 {
-    private readonly List<ProductId> _products = [];
-    public decimal IGV { get; }
-    public decimal Total { get; }
-    public IReadOnlyList<ProductId> ProductIds => _products.AsReadOnly();
+    private readonly List<ProductId> _productIds = [];
+    public decimal Igv { get; private set; }
+    public decimal TotalBruto { get; private set; }
+    public decimal TotalNeto { get; private set; }
+    public IReadOnlyList<ProductId> ProductIds => _productIds.AsReadOnly();
 
     private SaleDetail(
         SaleDetailId saleDetailId,
         decimal igv,
-        decimal toal)
+        decimal totalBruto,
+        decimal totalNeto,
+        List<ProductId> productIds)
         : base(saleDetailId)
     {
-        IGV = igv;
-        Total = toal;
+        Igv = igv;
+        TotalBruto = totalBruto;
+        TotalNeto = totalNeto;
+        _productIds = productIds;
     }
 
     public static SaleDetail Create(
         decimal igv,
-        decimal total)
+        decimal totalBruto,
+        decimal totalNeto,
+        List<ProductId> productIds)
     {
         return new SaleDetail(
             SaleDetailId.CreateUnique(),
             igv,
-            total
+            totalBruto,
+            totalNeto,
+            productIds
         );
     }
 

@@ -1,7 +1,7 @@
 @host = http://localhost:5180
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMmQxZjgxMS0wZmFjLTRkMTAtODIzNC1jM2UwYzg0ZjkxOTYiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiI2MmNlNmY2MS1iOTZhLTRkMjktYmYwZC03M2NhYzAyZjA4YTgiLCJleHAiOjE3MjUyNjUyNzAsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.rRx6WJu_ToEtL6stdngZm80vsidNVj7TmTFoRaxSS_c
 
-POST {{host}}/products
+POST {{host}}/product/single
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

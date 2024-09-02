@@ -4,6 +4,7 @@ using IncaFc.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IncaFc.Infrastructure.Migrations
 {
     [DbContext(typeof(IncaFcDbContext))]
-    partial class IncaFcDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240902122809_SaleModifyGuid")]
+    partial class SaleModifyGuid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,20 +266,17 @@ namespace IncaFc.Infrastructure.Migrations
 
                             b1.OwnsMany("IncaFc.Domain.ProductAggregate.ValueObjects.ProductId", "ProductIds", b2 =>
                                 {
-                                    b2.Property<Guid>("SaleDetailId")
-                                        .HasColumnType("uniqueidentifier");
-
-                                    b2.Property<int>("Id")
-                                        .ValueGeneratedOnAdd()
-                                        .HasColumnType("int");
-
-                                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b2.Property<int>("Id"));
-
                                     b2.Property<Guid>("Value")
+                                        .ValueGeneratedOnAdd()
                                         .HasColumnType("uniqueidentifier")
                                         .HasColumnName("SaleDetailProducId");
 
-                                    b2.HasKey("SaleDetailId", "Id");
+                                    b2.Property<Guid>("SaleDetailId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.HasKey("Value");
+
+                                    b2.HasIndex("SaleDetailId");
 
                                     b2.ToTable("SalesDetailsProductIds", (string)null);
 

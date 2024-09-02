@@ -1,7 +1,7 @@
 using IncaFc.Application.Customers.Commands.CreateCustomer;
 using IncaFc.Application.Customers.Queries.GetCustomer;
 using IncaFc.Application.Products.Commands.CreateProduct;
-using IncaFc.Contracts.Customer;
+using IncaFc.Contracts.Customers;
 using IncaFc.Contracts.Products;
 
 using MapsterMapper;

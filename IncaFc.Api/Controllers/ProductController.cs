@@ -1,4 +1,5 @@
 using IncaFc.Application.Products.Commands.CreateProduct;
+using IncaFc.Application.Products.Commands.CreateProducts;
 using IncaFc.Application.Products.Queries.GetProduct;
 using IncaFc.Contracts.Products;
 
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IncaFc.Api.Controllers;
 
-[Route("products")]
+[Route("product")]
 public class ProductController : ApiController
 {
     private readonly IMapper _mapper;
@@ -22,7 +23,7 @@ public class ProductController : ApiController
         _mediator = mediator;
     }
 
-    [HttpPost]
+    [HttpPost("single")]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
         var command = _mapper.Map<CreateProductCommand>(request);
@@ -34,6 +35,20 @@ public class ProductController : ApiController
             errors => Problem(errors)
         );
     }
+
+    [HttpPost("multiple")]
+    public async Task<IActionResult> CreateProducts(List<CreateProductRequest> requests)
+    {
+        var command = _mapper.Map<CreateProductsCommand>(requests);
+
+        var createProductsResult = await _mediator.Send(command);
+
+        return createProductsResult.Match(
+            products => Ok(products.Select(product => _mapper.Map<ProductResponse>(product)).ToList()),
+            errors => Problem(errors)
+        );
+    }
+
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetProductById(Guid id)
