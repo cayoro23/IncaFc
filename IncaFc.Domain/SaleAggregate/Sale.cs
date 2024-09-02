@@ -5,7 +5,7 @@ using IncaFc.Domain.UserAggregate.ValueObjects;
 
 namespace IncaFc.Domain.SaleAggregate;
 
-public sealed class Sale : AggregateRoot<SaleDetailId>
+public sealed class Sale : AggregateRoot<SaleDetailId, Guid>
 {
     public string Name { get; }
     public bool State { get; }

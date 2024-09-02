@@ -3,7 +3,7 @@ using IncaFc.Domain.CustomerAggregate.ValueObjects;
 
 namespace IncaFc.Domain.CustomerAggregate;
 
-public sealed class Customer : AggregateRoot<CustomerId>
+public sealed class Customer : AggregateRoot<CustomerId, Guid>
 {
     public string Name { get; }
     public DateTime CreatedDateTime { get; }

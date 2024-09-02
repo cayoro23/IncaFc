@@ -1,23 +1,7 @@
 @host = http://localhost:5180
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMmQxZjgxMS0wZmFjLTRkMTAtODIzNC1jM2UwYzg0ZjkxOTYiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiI2MmNlNmY2MS1iOTZhLTRkMjktYmYwZC03M2NhYzAyZjA4YTgiLCJleHAiOjE3MjUyNjUyNzAsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.rRx6WJu_ToEtL6stdngZm80vsidNVj7TmTFoRaxSS_c
+@productId = 1713f685-5253-48fe-a184-81a75f157a0d
 
-POST {{host}}/products
+GET {{host}}/products/{{productId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
-
-{
-  "Name": "Laptop X200",
-  "Description": "Una laptop de alto rendimiento con 16GB de RAM y 512GB de SSD.",
-  "Stock": 50,
-  "Price": {
-    "Amount": 1200.99,
-    "Currency": "PEN",
-    "UnitOfMeasure": "Unidad"
-  },
-  "Location": {
-    "Name": "Tienda Don Ramon",
-    "Address": "Avenida Pucallpa 1213",
-    "latitude": 52.520008,
-    "longitude": 13.404954
-  }
-}

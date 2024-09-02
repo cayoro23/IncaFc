@@ -3,7 +3,7 @@ using IncaFc.Domain.Common.Models;
 
 namespace IncaFc.Domain.BrandAggregate;
 
-public sealed class Brand : AggregateRoot<BrandId>
+public sealed class Brand : AggregateRoot<BrandId, Guid>
 {
     public string Name { get; private set; }
     public DateTime CreatedDateTime { get; private set; }

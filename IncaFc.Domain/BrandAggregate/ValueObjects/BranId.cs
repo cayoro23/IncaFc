@@ -2,9 +2,9 @@ using IncaFc.Domain.Common.Models;
 
 namespace IncaFc.Domain.BrandAggregate.ValueObjects;
 
-public class BrandId : ValueObject
+public class BrandId : AgregateRootId<Guid>
 {
-    public Guid Value { get; private set; }
+    public override Guid Value { get; protected set; }
 
     private BrandId(Guid value)
     {
@@ -13,7 +13,7 @@ public class BrandId : ValueObject
 
     public static BrandId CreateUnique()
     {
-        return new(Guid.NewGuid());
+        return new BrandId(Guid.NewGuid());
     }
 
     public static BrandId Create(Guid value)

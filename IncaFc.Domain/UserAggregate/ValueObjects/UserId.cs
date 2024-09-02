@@ -2,10 +2,9 @@ using IncaFc.Domain.Common.Models;
 
 namespace IncaFc.Domain.UserAggregate.ValueObjects;
 
-public class UserId : ValueObject
+public class UserId : AgregateRootId<Guid>
 {
-    public Guid Value { get; }
-
+    public override Guid Value { get; protected set; }
     private UserId(Guid value)
     {
         Value = value;
@@ -13,7 +12,12 @@ public class UserId : ValueObject
 
     public static UserId CreateUnique()
     {
-        return new(Guid.NewGuid());
+        return new UserId(Guid.NewGuid());
+    }
+
+    public static UserId Create(Guid value)
+    {
+        return new UserId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

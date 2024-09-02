@@ -61,7 +61,6 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.HasKey(m => m.Id);
 
         builder.Property(m => m.Id)
-            .ValueGeneratedNever()
             .HasConversion(
                 id => id.Value,
                 value => ProductId.Create(value));
@@ -72,43 +71,43 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.Property(m => m.Description)
             .HasMaxLength(100);
 
-    builder.OwnsOne(m => m.Price, price =>
-    {
-        price.Property(p => p.Amount)
-            .HasColumnName("Price_Amount")
-            .HasColumnType("decimal(18,2)")
-            .IsRequired();
+        builder.OwnsOne(m => m.Price, price =>
+        {
+            price.Property(p => p.Amount)
+                .HasColumnName("Price_Amount")
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
 
-        price.Property(p => p.Currency)
-            .HasColumnName("Price_Currency")
-            .HasMaxLength(3)
-            .IsRequired();
+            price.Property(p => p.Currency)
+                .HasColumnName("Price_Currency")
+                .HasMaxLength(3)
+                .IsRequired();
 
-        price.Property(p => p.UnitOfMeasure)
-            .HasColumnName("Price_UnitOfMeasure")
-            .HasMaxLength(10)
-            .IsRequired();
-    });
+            price.Property(p => p.UnitOfMeasure)
+                .HasColumnName("Price_UnitOfMeasure")
+                .HasMaxLength(10)
+                .IsRequired();
+        });
 
-    builder.OwnsOne(m => m.Location, location =>
-    {
-        location.Property(l => l.Name)
-            .HasColumnName("Location_Name")
-            .HasMaxLength(50)
-            .IsRequired();
+        builder.OwnsOne(m => m.Location, location =>
+        {
+            location.Property(l => l.Name)
+                .HasColumnName("Location_Name")
+                .HasMaxLength(50)
+                .IsRequired();
 
-        location.Property(l => l.Address)
-            .HasColumnName("Location_Address")
-            .HasMaxLength(100)
-            .IsRequired();
+            location.Property(l => l.Address)
+                .HasColumnName("Location_Address")
+                .HasMaxLength(100)
+                .IsRequired();
 
-        location.Property(l => l.Latitude)
-            .HasColumnName("Location_Latitude")
-            .IsRequired();
+            location.Property(l => l.Latitude)
+                .HasColumnName("Location_Latitude")
+                .IsRequired();
 
-        location.Property(l => l.Longitude)
-            .HasColumnName("Location_Longitude")
-            .IsRequired();
-    });
+            location.Property(l => l.Longitude)
+                .HasColumnName("Location_Longitude")
+                .IsRequired();
+        });
     }
 }

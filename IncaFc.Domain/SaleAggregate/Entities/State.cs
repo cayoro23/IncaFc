@@ -3,7 +3,7 @@ using IncaFc.Domain.SaleAggregate.ValueObjects;
 
 namespace IncaFc.Domain.SaleAggregate.Entities;
 
-public sealed class State : AggregateRoot<StateId>
+public sealed class State : AggregateRoot<StateId, Guid>
 {
     public string Name { get; }
     public DateTime CreatedDateTime { get; }

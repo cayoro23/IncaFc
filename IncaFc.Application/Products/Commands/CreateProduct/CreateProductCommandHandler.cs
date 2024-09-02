@@ -17,10 +17,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _productRepository = productRepository;
     }
 
-    public async Task<ErrorOr<Product>> Handle(
-        CreateProductCommand request,
-        CancellationToken cancellationToken
-    )
+    public async Task<ErrorOr<Product>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         // Crear Producto

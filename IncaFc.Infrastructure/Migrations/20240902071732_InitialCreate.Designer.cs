@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IncaFc.Infrastructure.Migrations
 {
     [DbContext(typeof(IncaFcDbContext))]
-    [Migration("20240902053320_AddPriceAndLocationFields")]
-    partial class AddPriceAndLocationFields
+    [Migration("20240902071732_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

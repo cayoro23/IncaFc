@@ -5,7 +5,7 @@ using IncaFc.Domain.ProductAggregate.ValueObjects;
 
 namespace IncaFc.Domain.ProductAggregate;
 
-public sealed class Product : AggregateRoot<ProductId>
+public sealed class Product : AggregateRoot<ProductId, Guid>
 {
     private readonly List<CategoryId> _categoryIds = new();
     private readonly List<BrandId> _brandIds = new();

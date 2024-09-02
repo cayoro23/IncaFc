@@ -4,7 +4,7 @@ using IncaFc.Domain.SaleAggregate.ValueObjects;
 
 namespace IncaFc.Domain.SaleAggregate.Entities;
 
-public sealed class SaleDetail : AggregateRoot<SaleDetailId>
+public sealed class SaleDetail : AggregateRoot<SaleDetailId, Guid>
 {
     private readonly List<ProductId> _products = [];
     public decimal IGV { get; }

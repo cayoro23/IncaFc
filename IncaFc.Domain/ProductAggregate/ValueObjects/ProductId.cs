@@ -2,9 +2,9 @@ using IncaFc.Domain.Common.Models;
 
 namespace IncaFc.Domain.ProductAggregate.ValueObjects;
 
-public class ProductId : ValueObject
+public class ProductId : AgregateRootId<Guid>
 {
-    public Guid Value { get; }
+    public override Guid Value { get; protected set; }
 
     private ProductId(Guid value)
     {
@@ -13,7 +13,7 @@ public class ProductId : ValueObject
 
     public static ProductId CreateUnique()
     {
-        return new(Guid.NewGuid());
+        return new ProductId(Guid.NewGuid());
     }
 
     public static ProductId Create(Guid value)

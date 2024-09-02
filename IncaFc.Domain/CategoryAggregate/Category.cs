@@ -3,7 +3,7 @@ using IncaFc.Domain.Common.Models;
 
 namespace IncaFc.Domain.CategoryAggregate;
 
-public sealed class Category : AggregateRoot<CategoryId>
+public sealed class Category : AggregateRoot<CategoryId, Guid>
 {
     public string Name { get; private set; }
     public DateTime CreatedDateTime { get; private set; }

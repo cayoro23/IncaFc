@@ -19,6 +19,13 @@ namespace IncaFc.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
+                    Price_Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price_Currency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Price_UnitOfMeasure = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Location_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Location_Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Location_Latitude = table.Column<double>(type: "float", nullable: false),
+                    Location_Longitude = table.Column<double>(type: "float", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

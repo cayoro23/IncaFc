@@ -1,4 +1,5 @@
 using IncaFc.Application.Products.Commands.CreateProduct;
+using IncaFc.Application.Products.Queries.GetProduct;
 using IncaFc.Contracts.Products;
 
 using MapsterMapper;
@@ -29,6 +30,19 @@ public class ProductController : ApiController
         var createProductResult = await _mediator.Send(command);
 
         return createProductResult.Match(
+            product => Ok(_mapper.Map<ProductResponse>(product)),
+            errors => Problem(errors)
+        );
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetProductById(Guid id)
+    {
+        var query = new GetProductByIdQuery(id);
+
+        var getProductResult = await _mediator.Send(query);
+
+        return getProductResult.Match(
             product => Ok(_mapper.Map<ProductResponse>(product)),
             errors => Problem(errors)
         );
