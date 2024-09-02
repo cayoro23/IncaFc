@@ -1,0 +1,8 @@
+@host = http://localhost:5180
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OTE4MGNjZi1mNTFhLTRkMGMtOGViMy1iNzdhY2JiMTAzMDEiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiJlZjQ1NjJkYi0wMjg5LTQ2ZjEtODE5Ni04NmQ0ZDYyNTIxNTQiLCJleHAiOjE3MjUyNjkwOTUsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.9RaLdrUDvJM8YHApZgCb75zVG2No6f7cUGNtRK7h4Yw
+
+@customerId = ea5ec5da-9385-4a43-899b-d87f83c2f1b2
+
+GET {{host}}/customers/{{customerId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}

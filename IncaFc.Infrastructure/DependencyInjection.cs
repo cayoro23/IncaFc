@@ -3,6 +3,7 @@ using System.Text;
 using IncaFc.Application.Common.Interfaces.Authentication;
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Application.Common.Interfaces.Services;
+using IncaFc.Domain.CustomerAggregate;
 using IncaFc.Infrastructure.Authentication;
 using IncaFc.Infrastructure.Persistence;
 using IncaFc.Infrastructure.Persistence.Repositories;
@@ -37,6 +38,7 @@ public static class DependencyInjection
             
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         return services;
     }

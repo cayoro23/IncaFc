@@ -23,7 +23,7 @@ public class ProductController : ApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateMenu(CreateProductRequest request)
+    public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
         var command = _mapper.Map<CreateProductCommand>(request);
 
@@ -38,7 +38,7 @@ public class ProductController : ApiController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetProductById(Guid id)
     {
-        var query = new GetProductByIdQuery(id);
+        var query = new GetProductQuery(id);
 
         var getProductResult = await _mediator.Send(query);
 

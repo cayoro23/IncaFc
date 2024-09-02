@@ -1,3 +1,4 @@
+using IncaFc.Domain.CustomerAggregate;
 using IncaFc.Domain.ProductAggregate;
 
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ public class IncaFcDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<Customer> Customers { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

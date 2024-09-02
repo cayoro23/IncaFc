@@ -7,7 +7,7 @@ using MediatR;
 
 namespace IncaFc.Application.Products.Queries.GetProduct;
 
-public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ErrorOr<Product>>
+public class GetProductByIdQueryHandler : IRequestHandler<GetProductQuery, ErrorOr<Product>>
 {
     private readonly IProductRepository _productRepository;
 
@@ -16,7 +16,7 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, E
         _productRepository = productRepository;
     }
 
-    public async Task<ErrorOr<Product>> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Product>> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
         // Buscar el producto por ID
         var product = await _productRepository.GetByIdInMemoryAsync(request.ProductId);

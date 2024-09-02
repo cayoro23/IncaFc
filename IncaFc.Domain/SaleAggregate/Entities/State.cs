@@ -31,4 +31,9 @@ public sealed class State : AggregateRoot<StateId, Guid>
             DateTime.UtcNow
         );
     }
+
+#pragma warning disable CS8618
+    private State()
+    { }
+#pragma warning restore CS8618
 }

@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace IncaFc.Application.Products.Queries.GetProduct;
 
-public class GetProductQueryValidator : AbstractValidator<GetProductByIdQuery>
+public class GetProductQueryValidator : AbstractValidator<GetProductQuery>
 {
     public GetProductQueryValidator()
     {

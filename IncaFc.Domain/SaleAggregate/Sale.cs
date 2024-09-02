@@ -7,14 +7,14 @@ namespace IncaFc.Domain.SaleAggregate;
 
 public sealed class Sale : AggregateRoot<SaleDetailId, Guid>
 {
-    public string Name { get; }
-    public bool State { get; }
-    public string? Reason { get; }
-    public CustomerId CustomerId { get; }
-    public UserId UserId { get; }
-    public SaleDetailId SaleDetailId { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string Name { get; private set; }
+    public bool State { get; private set; }
+    public string? Reason { get; private set; }
+    public CustomerId CustomerId { get; private set; }
+    public UserId UserId { get; private set; }
+    public SaleDetailId SaleDetailId { get; private set; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Sale(
         SaleDetailId saleId,
@@ -54,4 +54,9 @@ public sealed class Sale : AggregateRoot<SaleDetailId, Guid>
             DateTime.UtcNow
         );
     }
+
+#pragma warning disable CS8618
+    private Sale()
+    { }
+#pragma warning restore CS8618
 }

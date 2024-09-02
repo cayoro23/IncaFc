@@ -6,4 +6,4 @@ using MediatR;
 
 namespace IncaFc.Application.Products.Queries.GetProduct;
 
-public record GetProductByIdQuery(Guid ProductId) : IRequest<ErrorOr<Product>>;
+public record GetProductQuery(Guid ProductId) : IRequest<ErrorOr<Product>>;

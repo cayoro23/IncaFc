@@ -31,4 +31,9 @@ public sealed class SaleDetail : AggregateRoot<SaleDetailId, Guid>
             total
         );
     }
+
+#pragma warning disable CS8618
+    private SaleDetail()
+    { }
+#pragma warning restore CS8618
 }
