@@ -4,6 +4,7 @@ using IncaFc.Application.Sales.Commands.UpdateSale;
 using IncaFc.Application.Sales.Queries.GetSale;
 using IncaFc.Contracts.Sales;
 using IncaFc.Domain.SaleAggregate;
+using IncaFc.Domain.SaleAggregate.Entities;
 
 using MapsterMapper;
 
@@ -32,7 +33,7 @@ public class SaleController : ApiController
         var createSaleResult = await _mediator.Send(command);
 
         return createSaleResult.Match(
-            sale => Ok(_mapper.Map<SaleResponse>(sale)),
+            sale => Ok(MapToSaleResponse(sale)),
             errors => Problem(errors)
         );
     }
@@ -44,7 +45,7 @@ public class SaleController : ApiController
         var getSaleResult = await _mediator.Send(query);
 
         return getSaleResult.Match(
-            sale => Ok(_mapper.Map<SaleResponse>(sale)),
+            sale => Ok(MapToSaleResponse(sale)),
             errors => Problem(errors)
         );
     }
@@ -57,7 +58,7 @@ public class SaleController : ApiController
         var updateSaleResult = await _mediator.Send(command);
 
         return updateSaleResult.Match(
-            sale => Ok(_mapper.Map<SaleResponse>(sale)),
+            sale => Ok(MapToSaleResponse(sale)),
             errors => Problem(errors)
         );
     }
@@ -71,6 +72,32 @@ public class SaleController : ApiController
         return deleteSaleResult.Match(
             result => NotFound(),
             errors => Problem(errors)
+        );
+    }
+
+    public static SaleResponse MapToSaleResponse(Sale sale)
+    {
+        return new SaleResponse(
+            sale.Id.Value,
+            sale.Name,
+            sale.State,
+            sale.Reason ?? string.Empty,
+            sale.CustomerId.Value,
+            sale.UserId.Value,
+            MapToSaleDetailResponse(sale.SaleDetail),
+            sale.CreatedDateTime,
+            sale.UpdatedDateTime
+        );
+    }
+
+    private static SaleDetailResponse MapToSaleDetailResponse(SaleDetail saleDetail)
+    {
+        return new SaleDetailResponse(
+            saleDetail.Id.Value,
+            saleDetail.Igv,
+            saleDetail.TotalBruto,
+            saleDetail.TotalNeto,
+            saleDetail.ProductIds.Select(p => p.Value).ToList()
         );
     }
 

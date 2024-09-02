@@ -1,12 +1,12 @@
 @host = http://localhost:5180
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ODI2OGQ1NC02YmYxLTQ5MzQtOGNmMi1jMWE2NzZkNDEzZDciLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiI4OTEwZmVlMy0xMzI4LTQxMjctODQ3Ny1kNWU5MDgwYTJlYzUiLCJleHAiOjE3MjUyODIzNzYsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.eATZDHSbytx0aNsnUJuuPIDvzE_f85TfWxrlBpOWHtM
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYjAzY2E3MS1jNzA0LTRjN2ItYjc2ZC0wZTZhNWExZmFjYjMiLCJnaXZlbl9uYW1lIjoiQ2FybG9zIiwiZmFtaWx5X25hbWUiOiJSb2RyaWd1ZXoiLCJqdGkiOiI1NmU5YWEzZS1mYmViLTQ1MzUtYjRiYi1mMGI1NTJmNWU2NmIiLCJleHAiOjE3MjUzMTU1OTgsImlzcyI6IkluY2FGYyIsImF1ZCI6IkluY2FGYyJ9.0o_1jTolqrzaOmlK8Jfhh0TgfArBWvu6Gk_Zfg5Uj7M
 
 POST {{host}}/sale
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "Name": "Venta #1",
+  "Name": "Venta #10",
   "State": true,
   "CustomerId": "b2c5f0e4-3bfa-4c2d-9e5a-7d2c3e0d2f6a",
   "UserId": "f2d7b1e3-4c9a-4d9c-9b7a-8f2e9c3b6a2f",

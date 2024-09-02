@@ -40,6 +40,7 @@ public class SaleConfigurations : IEntityTypeConfiguration<Sale>
             .HasMaxLength(250);
 
         builder.Property(m => m.CustomerId)
+            .HasColumnName("SaleDetailId")
             .HasConversion(
                 id => id.Value,
                 value => CustomerId.Create(value));
@@ -80,6 +81,8 @@ public class SaleConfigurations : IEntityTypeConfiguration<Sale>
             sd.OwnsMany(d => d.ProductIds, br =>
             {
                 br.ToTable("SalesDetailsProductIds");
+
+                sd.HasKey(d => d.Id);
 
                 br.WithOwner().HasForeignKey("SaleDetailId");
 
