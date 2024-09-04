@@ -2,47 +2,27 @@ using IncaFc.Domain.Common.Models;
 using IncaFc.Domain.ProductAggregate.ValueObjects;
 using IncaFc.Domain.SaleAggregate.ValueObjects;
 
-namespace IncaFc.Domain.SaleAggregate.Entities;
-
-public sealed class SaleDetail : AggregateRoot<SaleDetailId, Guid>
+namespace IncaFc.Domain.SaleAggregate.Entities
 {
-    private readonly List<ProductId> _productIds = [];
-    public decimal Igv { get; private set; }
-    public decimal TotalBruto { get; private set; }
-    public decimal TotalNeto { get; private set; }
-    public IReadOnlyList<ProductId> ProductIds => _productIds.AsReadOnly();
-
-    private SaleDetail(
-        SaleDetailId saleDetailId,
-        decimal igv,
-        decimal totalBruto,
-        decimal totalNeto,
-        List<ProductId> productIds)
-        : base(saleDetailId)
+    public sealed class SaleDetail : AggregateRoot<SaleDetailId, Guid>
     {
-        Igv = igv;
-        TotalBruto = totalBruto;
-        TotalNeto = totalNeto;
-        _productIds = productIds;
-    }
+        public ProductId ProductId { get; private set; }
+        public int Quantity { get; private set; }
 
-    public static SaleDetail Create(
-        decimal igv,
-        decimal totalBruto,
-        decimal totalNeto,
-        List<ProductId> productIds)
-    {
-        return new SaleDetail(
-            SaleDetailId.CreateUnique(),
-            igv,
-            totalBruto,
-            totalNeto,
-            productIds
-        );
-    }
+        private SaleDetail(SaleDetailId saleDetailId, ProductId productId, int quantity)
+            : base(saleDetailId)
+        {
+            ProductId = productId;
+            Quantity = quantity;
+        }
+
+        public static SaleDetail Create(ProductId productId, int quantity)
+        {
+            return new SaleDetail(SaleDetailId.CreateUnique(), productId, quantity);
+        }
 
 #pragma warning disable CS8618
-    private SaleDetail()
-    { }
+        private SaleDetail() { }
 #pragma warning restore CS8618
+    }
 }

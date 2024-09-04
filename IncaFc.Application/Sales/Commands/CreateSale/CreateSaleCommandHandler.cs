@@ -1,14 +1,14 @@
 using ErrorOr;
-
 using IncaFc.Application.Common.Interfaces.Persistence;
-using IncaFc.Domain.SaleAggregate;
 using IncaFc.Domain.Common.Errors;
-
-using MediatR;
-using IncaFc.Domain.SaleAggregate.Entities;
-using IncaFc.Domain.ProductAggregate.ValueObjects;
 using IncaFc.Domain.CustomerAggregate.ValueObjects;
+using IncaFc.Domain.ProductAggregate;
+using IncaFc.Domain.ProductAggregate.ValueObjects;
+using IncaFc.Domain.SaleAggregate;
+using IncaFc.Domain.SaleAggregate.Entities;
+using IncaFc.Domain.SaleAggregate.ValueObjects;
 using IncaFc.Domain.UserAggregate.ValueObjects;
+using MediatR;
 
 namespace IncaFc.Application.Sales.Commands.CreateSale;
 
@@ -17,55 +17,95 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Error
     private readonly ISaleRepository _saleRepository;
     private readonly IProductRepository _productRepository;
 
-    public CreateSaleCommandHandler(ISaleRepository saleRepository, IProductRepository productRepository)
+    public CreateSaleCommandHandler(
+        ISaleRepository saleRepository,
+        IProductRepository productRepository
+    )
     {
         _saleRepository = saleRepository;
         _productRepository = productRepository;
     }
 
-    public async Task<ErrorOr<Sale>> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Sale>> Handle(
+        CreateSaleCommand request,
+        CancellationToken cancellationToken
+    )
     {
-        var productPrices = new Dictionary<Guid, decimal>();
-        decimal totalBruto = 0;
-        decimal exchangeRate = 3.80m;
+        List<Product> productSales = new List<Product>();
+        List<SaleDetail> saleDetails = new List<SaleDetail>();
+        decimal totalBruto = 0m;
+        const decimal exchangeRate = 3.7m;
+        const decimal igv = 18;
 
-        foreach (var productId in request.SaleDetail.ProductIds)
+        foreach (var detail in request.SaleDetails)
         {
-            var product = await _productRepository.GetByIdInMemoryAsync(productId.Value);
+            Product? product = await _productRepository.GetByIdInMemoryAsync(detail.ProductId);
 
             if (product is null)
             {
-                return Errors.SaleDetailProduct.EmptySaleDetailProduct;
+                return Errors.CreateSale.EmptySaleDetailProduct;
             }
 
-            decimal productPriceInPEN = product.Price.Currency == "USD" ? product.Price.Amount * exchangeRate : product.Price.Amount;
-            productPrices[productId.Value] = productPriceInPEN;
-            totalBruto += productPriceInPEN;
+            productSales.Add(product);
         }
 
-        decimal totalNeto = totalBruto + (totalBruto * request.SaleDetail.Igv / 100);
+        foreach (var detail in request.SaleDetails)
+        {
+            var saleDetail = SaleDetail.Create(
+                productId: ProductId.Create(detail.ProductId),
+                quantity: detail.Quantity
+            );
 
-        // Crear Venta
-        var saleDetail = SaleDetail.Create(
-            igv: request.SaleDetail.Igv,
-            totalBruto: totalBruto,
-            totalNeto: totalNeto,
-            productIds: request.SaleDetail.ProductIds.ConvertAll(p => ProductId.Create(p.Value))
-        );
+            saleDetails.Add(saleDetail);
+        }
+
+        for (int i = 0; i < productSales.Count; i++)
+        {
+            var product = productSales[i];
+            var detail = request.SaleDetails[i];
+
+            if (product.Stock < detail.Quantity)
+            {
+                return Errors.CreateSale.OutOfStock;
+            }
+
+            decimal productPriceInPEN =
+                product.Price.Currency == "USD"
+                    ? product.Price.Amount * exchangeRate
+                    : product.Price.Amount;
+
+            totalBruto += productPriceInPEN * detail.Quantity;
+        }
+
+        decimal total = totalBruto + (totalBruto * igv / 100);
+
+        foreach (var detail in saleDetails)
+        {
+            await _saleRepository.AddDetailAsync(detail);
+        }
 
         var sale = Sale.Create(
             name: request.Name,
             state: request.State,
-            reason: "",
+            reason: request.Reason ?? "",
             customerId: CustomerId.Create(request.CustomerId),
             userId: UserId.Create(request.UserId),
-            saleDetail: saleDetail
+            total: total,
+            saleDetails: saleDetails
         );
 
-        // Persistir Producto
         await _saleRepository.AddAsync(sale);
 
-        // Retornar Producto
+        for (int i = 0; i < productSales.Count; i++)
+        {
+            var product = productSales[i];
+            var detail = request.SaleDetails[i];
+            var newStock = product.Stock - detail.Quantity;
+
+            product.UpdateProductStock(newStock);
+            await _productRepository.UpdateAsync(product);
+        }
+
         return sale;
     }
 }

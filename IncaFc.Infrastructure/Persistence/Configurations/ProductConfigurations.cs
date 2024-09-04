@@ -32,7 +32,6 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
 
         builder.Metadata.FindNavigation(nameof(Product.CategoryIds))!
         .SetPropertyAccessMode(PropertyAccessMode.Field);
-
     }
 
     private void ConfigureBrandIdsTable(EntityTypeBuilder<Product> builder)

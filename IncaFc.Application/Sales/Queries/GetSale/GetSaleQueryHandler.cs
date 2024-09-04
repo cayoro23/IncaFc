@@ -25,7 +25,7 @@ public class GetSaleQueryHandler : IRequestHandler<GetSaleQuery, ErrorOr<Sale>>
         // Verificar si el producto existe
         if (sale is null)
         {
-            return Errors.SaleGet.GetSale;
+            return Errors.GetSale.GetSaleOne;
         }
 
         // Retornar el producto encontrado

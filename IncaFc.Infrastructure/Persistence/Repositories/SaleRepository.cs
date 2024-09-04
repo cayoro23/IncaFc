@@ -1,7 +1,6 @@
-
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Domain.SaleAggregate;
-
+using IncaFc.Domain.SaleAggregate.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace IncaFc.Infrastructure.Persistence.Repositories;
@@ -41,6 +40,12 @@ public class SaleRepository : ISaleRepository
     public async Task DeleteAsync(Sale sale)
     {
         _dbContext.Sales.Remove(sale);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task AddDetailAsync(SaleDetail saleDetail)
+    {
+        await _dbContext.AddAsync(saleDetail);
         await _dbContext.SaveChangesAsync();
     }
 }

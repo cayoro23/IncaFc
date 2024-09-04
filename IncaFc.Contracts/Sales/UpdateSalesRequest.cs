@@ -1,3 +1,3 @@
 namespace IncaFc.Contracts.Sales;
 
-public record UpdateSalesRequest(bool State, string Reason);
+public record UpdateSaleRequest(bool State, string? Reason);

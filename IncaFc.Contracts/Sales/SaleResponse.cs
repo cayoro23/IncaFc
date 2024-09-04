@@ -1,23 +1,17 @@
 namespace IncaFc.Contracts.Sales;
 
 public record SaleResponse(
-    Guid Id,
+    Guid SaleId,
     string Name,
     bool State,
-    string Reason,
+    string? Reason,
     Guid CustomerId,
     Guid UserId,
-    SaleDetailResponse SaleDetail,
     DateTime CreatedDateTime,
-    DateTime UpdatedDateTime
+    DateTime UpdatedDateTime,
+    List<SaleDetailResponse> SaleDetails,
+    decimal Total,
+    decimal Igv
 );
 
-public record SaleDetailResponse(
-    Guid Id,
-    decimal Igv,
-    decimal TotalBruto,
-    decimal TotalNeto,
-    List<Guid> ProductIds
-);
-
-public record ProductIdResponse(Guid Value);
+public record SaleDetailResponse(Guid ProductId, int Quantity);

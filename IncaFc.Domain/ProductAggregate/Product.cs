@@ -1,14 +1,14 @@
-using IncaFc.Domain.Common.Models;
 using IncaFc.Domain.BrandAggregate.ValueObjects;
 using IncaFc.Domain.CategoryAggregate.ValueObjects;
+using IncaFc.Domain.Common.Models;
 using IncaFc.Domain.ProductAggregate.ValueObjects;
 
 namespace IncaFc.Domain.ProductAggregate;
 
 public sealed class Product : AggregateRoot<ProductId, Guid>
 {
-    private readonly List<CategoryId> _categoryIds = new();
-    private readonly List<BrandId> _brandIds = new();
+    private readonly List<CategoryId> _categoryIds = [];
+    private readonly List<BrandId> _brandIds = [];
     public string Name { get; private set; }
     public string Description { get; private set; }
     public int Stock { get; private set; }
@@ -44,6 +44,12 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         UpdatedDateTime = updatedDateTime;
     }
 
+    public void UpdateProductStock(int stock)
+    {
+        Stock = stock;
+        UpdatedDateTime = DateTime.UtcNow;
+    }
+
     public static Product Create(
         string name,
         string description,
@@ -69,7 +75,6 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
     }
 
 #pragma warning disable CS8618
-    private Product()
-    { }
+    private Product() { }
 #pragma warning restore CS8618
 }

@@ -33,7 +33,7 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistance(this IServiceCollection services)
     {
         services.AddDbContext<IncaFcDbContext>(options =>
-            options.UseSqlServer("Server=localhost;Database=IncaFc2;User Id=sa;Password=carlos123!;TrustServerCertificate=true"));
+            options.UseSqlServer(@"Server=cayoro\SQLEXPRESS;Database=IncaFc;User Id=sa;Password=1234;TrustServerCertificate=true"));
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();

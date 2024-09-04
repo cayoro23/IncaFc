@@ -10,6 +10,6 @@ public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
         RuleFor(x => x.State).NotEmpty();
         RuleFor(x => x.CustomerId).NotEmpty();
         RuleFor(x => x.UserId).NotEmpty();
-        RuleFor(x => x.SaleDetail).NotEmpty();
+        RuleFor(x => x.SaleDetails).NotEmpty();
     }
 }

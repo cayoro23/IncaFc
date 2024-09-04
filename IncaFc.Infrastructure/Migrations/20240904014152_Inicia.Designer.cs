@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IncaFc.Infrastructure.Migrations
 {
     [DbContext(typeof(IncaFcDbContext))]
-    [Migration("20240902122809_SaleModifyGuid")]
-    partial class SaleModifyGuid
+    [Migration("20240904014152_Inicia")]
+    partial class Inicia
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,6 +75,29 @@ namespace IncaFc.Infrastructure.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
+            modelBuilder.Entity("IncaFc.Domain.SaleAggregate.Entities.SaleDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("SaleDetailId");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ProductId");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("SaleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("SaleDetails", (string)null);
+                });
+
             modelBuilder.Entity("IncaFc.Domain.SaleAggregate.Sale", b =>
                 {
                     b.Property<Guid>("Id")
@@ -84,7 +107,8 @@ namespace IncaFc.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CustomerId");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -98,11 +122,15 @@ namespace IncaFc.Infrastructure.Migrations
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("UpdatedDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UserId");
 
                     b.HasKey("Id");
 
@@ -234,61 +262,17 @@ namespace IncaFc.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("IncaFc.Domain.SaleAggregate.Entities.SaleDetail", b =>
+                {
+                    b.HasOne("IncaFc.Domain.SaleAggregate.Sale", null)
+                        .WithMany("SaleDetails")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("IncaFc.Domain.SaleAggregate.Sale", b =>
                 {
-                    b.OwnsOne("IncaFc.Domain.SaleAggregate.Entities.SaleDetail", "SaleDetail", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("SaleDetailId");
-
-                            b1.Property<decimal>("Igv")
-                                .HasColumnType("decimal(18,2)");
-
-                            b1.Property<Guid>("SaleId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<decimal>("TotalBruto")
-                                .HasColumnType("decimal(18,2)");
-
-                            b1.Property<decimal>("TotalNeto")
-                                .HasColumnType("decimal(18,2)");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("SaleId")
-                                .IsUnique();
-
-                            b1.ToTable("SalesDetails", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("SaleId");
-
-                            b1.OwnsMany("IncaFc.Domain.ProductAggregate.ValueObjects.ProductId", "ProductIds", b2 =>
-                                {
-                                    b2.Property<Guid>("Value")
-                                        .ValueGeneratedOnAdd()
-                                        .HasColumnType("uniqueidentifier")
-                                        .HasColumnName("SaleDetailProducId");
-
-                                    b2.Property<Guid>("SaleDetailId")
-                                        .HasColumnType("uniqueidentifier");
-
-                                    b2.HasKey("Value");
-
-                                    b2.HasIndex("SaleDetailId");
-
-                                    b2.ToTable("SalesDetailsProductIds", (string)null);
-
-                                    b2.WithOwner()
-                                        .HasForeignKey("SaleDetailId");
-                                });
-
-                            b1.Navigation("ProductIds");
-                        });
-
-                    b.Navigation("SaleDetail")
-                        .IsRequired();
+                    b.Navigation("SaleDetails");
                 });
 #pragma warning restore 612, 618
         }

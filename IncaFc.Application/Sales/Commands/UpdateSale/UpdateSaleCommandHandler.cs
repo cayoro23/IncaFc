@@ -19,18 +19,16 @@ public class UpdateSaleCommandHandler : IRequestHandler<UpdateSaleCommand, Error
 
     public async Task<ErrorOr<Sale>> Handle(UpdateSaleCommand request, CancellationToken cancellationToken)
     {
-        // Modificar Venta
+        
         var sale = await _saleRepository.GetByIdInMemoryAsync(request.Id);
         if (sale is null)
         {
-            return Errors.SaleUpdate.UpdateSale;
+            return Errors.UpdateSale.UpdateSaleCancellation;
         }
 
-        // Persistir Producto
         sale.UpdateStateAndReason(request.State, request.Reason);
         await _saleRepository.UpdateAsync(sale);
 
-        // Retornar Producto
         return sale;
     }
 }

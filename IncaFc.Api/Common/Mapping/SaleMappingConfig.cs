@@ -14,7 +14,7 @@ public class SaleMappingConfig : IRegister
         config.NewConfig<CreateSaleRequest, CreateSaleCommand>()
             .Map(dest => dest, src => src);
 
-        config.NewConfig<(Guid Id, UpdateSalesRequest Request), UpdateSaleCommand>()
+        config.NewConfig<(Guid Id, UpdateSaleRequest Request), UpdateSaleCommand>()
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest, src => src.Request);
 

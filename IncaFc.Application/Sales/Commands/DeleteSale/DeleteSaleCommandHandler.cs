@@ -26,7 +26,7 @@ public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand, Error
         // Verificar si el producto existe
         if (sale is null)
         {
-            return Errors.SaleUpdate.UpdateSale;
+            return Errors.UpdateSale.UpdateSaleCancellation;
         }
 
         await _saleRepository.DeleteAsync(sale);

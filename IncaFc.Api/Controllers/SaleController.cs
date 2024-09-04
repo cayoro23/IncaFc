@@ -3,13 +3,8 @@ using IncaFc.Application.Sales.Commands.DeleteSale;
 using IncaFc.Application.Sales.Commands.UpdateSale;
 using IncaFc.Application.Sales.Queries.GetSale;
 using IncaFc.Contracts.Sales;
-using IncaFc.Domain.SaleAggregate;
-using IncaFc.Domain.SaleAggregate.Entities;
-
 using MapsterMapper;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace IncaFc.Api.Controllers;
@@ -33,7 +28,7 @@ public class SaleController : ApiController
         var createSaleResult = await _mediator.Send(command);
 
         return createSaleResult.Match(
-            sale => Ok(MapToSaleResponse(sale)),
+            sale => Ok(_mapper.Map<SaleResponse>(sale)),
             errors => Problem(errors)
         );
     }
@@ -45,20 +40,19 @@ public class SaleController : ApiController
         var getSaleResult = await _mediator.Send(query);
 
         return getSaleResult.Match(
-            sale => Ok(MapToSaleResponse(sale)),
+            sale => Ok(_mapper.Map<SaleResponse>(sale)),
             errors => Problem(errors)
         );
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateSale(Guid id, UpdateSalesRequest request)
+    public async Task<IActionResult> UpdateSale(Guid id, UpdateSaleRequest request)
     {
-
         var command = _mapper.Map<UpdateSaleCommand>((id, request));
         var updateSaleResult = await _mediator.Send(command);
 
         return updateSaleResult.Match(
-            sale => Ok(MapToSaleResponse(sale)),
+            sale => Ok(_mapper.Map<SaleResponse>(sale)),
             errors => Problem(errors)
         );
     }
@@ -69,36 +63,6 @@ public class SaleController : ApiController
         var command = new DeleteSaleCommand(id);
         var deleteSaleResult = await _mediator.Send(command);
 
-        return deleteSaleResult.Match(
-            result => NotFound(),
-            errors => Problem(errors)
-        );
+        return deleteSaleResult.Match(result => NotFound(), errors => Problem(errors));
     }
-
-    public static SaleResponse MapToSaleResponse(Sale sale)
-    {
-        return new SaleResponse(
-            sale.Id.Value,
-            sale.Name,
-            sale.State,
-            sale.Reason ?? string.Empty,
-            sale.CustomerId.Value,
-            sale.UserId.Value,
-            MapToSaleDetailResponse(sale.SaleDetail),
-            sale.CreatedDateTime,
-            sale.UpdatedDateTime
-        );
-    }
-
-    private static SaleDetailResponse MapToSaleDetailResponse(SaleDetail saleDetail)
-    {
-        return new SaleDetailResponse(
-            saleDetail.Id.Value,
-            saleDetail.Igv,
-            saleDetail.TotalBruto,
-            saleDetail.TotalNeto,
-            saleDetail.ProductIds.Select(p => p.Value).ToList()
-        );
-    }
-
 }

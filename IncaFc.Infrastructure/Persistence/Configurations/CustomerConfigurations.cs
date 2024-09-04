@@ -1,6 +1,5 @@
 using IncaFc.Domain.CustomerAggregate;
 using IncaFc.Domain.CustomerAggregate.ValueObjects;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,13 +18,11 @@ public class CustomerConfigurations : IEntityTypeConfiguration<Customer>
 
         builder.HasKey(m => m.Id);
 
-        builder.Property(m => m.Id)
+        builder
+            .Property(m => m.Id)
             .ValueGeneratedNever()
-            .HasConversion(
-                id => id.Value,
-                value => CustomerId.Create(value));
+            .HasConversion(id => id.Value, value => CustomerId.Create(value));
 
-        builder.Property(m => m.Name)
-            .HasMaxLength(100);
+        builder.Property(m => m.Name).HasMaxLength(100);
     }
 }

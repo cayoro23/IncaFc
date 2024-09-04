@@ -1,16 +1,16 @@
 namespace IncaFc.Contracts.Sales;
 
+using System;
+using System.Collections.Generic;
+
 public record CreateSaleRequest(
     string Name,
     bool State,
+    string? Reason,
     Guid CustomerId,
     Guid UserId,
-    CreateSaleDetailRequest SaleDetail
+    DateTime CreatedDateTime,
+    List<SaleDetailRequest> SaleDetails
 );
 
-public record CreateSaleDetailRequest(
-    Guid Id,
-    decimal Igv,
-    List<CreateProductIdRequest> ProductIds);
-
-public record CreateProductIdRequest(Guid Value);
+public record SaleDetailRequest(Guid ProductId, int Quantity);

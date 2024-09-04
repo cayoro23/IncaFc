@@ -13,9 +13,10 @@ public sealed class Sale : AggregateRoot<SaleId, Guid>
     public string? Reason { get; private set; }
     public CustomerId CustomerId { get; private set; }
     public UserId UserId { get; private set; }
-    public SaleDetail SaleDetail { get; private set; }
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
+    public List<SaleDetail> SaleDetails { get; private set; } = [];
+    public decimal Total { get; private set; }
 
     private Sale(
         SaleId saleId,
@@ -24,9 +25,11 @@ public sealed class Sale : AggregateRoot<SaleId, Guid>
         string? reason,
         CustomerId customerId,
         UserId userId,
-        SaleDetail saleDetail,
+        List<SaleDetail> saleDetails,
+        decimal total,
         DateTime createdDateTime,
-        DateTime updatedDateTime)
+        DateTime updatedDateTime
+    )
         : base(saleId)
     {
         Name = name;
@@ -34,15 +37,28 @@ public sealed class Sale : AggregateRoot<SaleId, Guid>
         Reason = reason;
         CustomerId = customerId;
         UserId = userId;
-        SaleDetail = saleDetail;
+        SaleDetails = saleDetails;
+        Total = total;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
 
-    public void UpdateStateAndReason(bool newState, string? newReason)
+    public void UpdateStateAndReason(bool newState, string newReason)
     {
         State = newState;
         Reason = newReason;
+        UpdatedDateTime = DateTime.UtcNow;
+    }
+
+    public void AddSaleDetail(SaleDetail saleDetail)
+    {
+        SaleDetails.Add(saleDetail);
+        UpdatedDateTime = DateTime.UtcNow;
+    }
+
+    public void RemoveSaleDetail(SaleDetail saleDetail)
+    {
+        SaleDetails.Remove(saleDetail);
         UpdatedDateTime = DateTime.UtcNow;
     }
 
@@ -52,7 +68,9 @@ public sealed class Sale : AggregateRoot<SaleId, Guid>
         string? reason,
         CustomerId customerId,
         UserId userId,
-        SaleDetail saleDetail)
+        List<SaleDetail> saleDetails,
+        decimal total
+    )
     {
         return new Sale(
             SaleId.CreateUnique(),
@@ -61,14 +79,14 @@ public sealed class Sale : AggregateRoot<SaleId, Guid>
             reason ?? "",
             customerId,
             userId,
-            saleDetail,
+            saleDetails,
+            total,
             DateTime.UtcNow,
             DateTime.UtcNow
         );
     }
 
 #pragma warning disable CS8618
-    private Sale()
-    { }
+    private Sale() { }
 #pragma warning restore CS8618
 }

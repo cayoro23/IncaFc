@@ -1,9 +1,7 @@
 using ErrorOr;
-
 using IncaFc.Application.Common.Interfaces.Persistence;
 using IncaFc.Domain.ProductAggregate;
 using IncaFc.Domain.ProductAggregate.ValueObjects;
-
 using MediatR;
 
 namespace IncaFc.Application.Products.Commands.CreateProduct;
@@ -17,10 +15,11 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _productRepository = productRepository;
     }
 
-    public async Task<ErrorOr<Product>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Product>> Handle(
+        CreateProductCommand request,
+        CancellationToken cancellationToken
+    )
     {
-        await Task.CompletedTask;
-        // Crear Producto
         var product = Product.Create(
             name: request.Name,
             description: request.Description,
@@ -30,15 +29,18 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
                 request.Price.Currency,
                 request.Price.UnitOfMeasure
             ),
-            location: Location.Create(request.Location.Name, request.Location.Address, request.Location.Latitude, request.Location.Longitude),
+            location: Location.Create(
+                request.Location.Name,
+                request.Location.Address,
+                request.Location.Latitude,
+                request.Location.Longitude
+            ),
             categoryIds: [],
             brandIds: []
         );
 
-        // Persistir Producto
-        _productRepository.Add(product);
+        await _productRepository.AddAsync(product);
 
-        // Retornar Producto
         return product;
     }
 }

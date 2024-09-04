@@ -4,35 +4,41 @@ namespace IncaFc.Domain.Common.Errors;
 
 public static partial class Errors
 {
-    public static class SaleDetailProduct
+    public static class CreateSale
     {
-        public static Error EmptySaleDetailProduct => Error.NotFound(
-            code: "SaleDetailProduct.EmptySaleDetailProduct",
-            description: "Datos vacios de productos"
-        );
+        public static Error EmptySaleDetailProduct =>
+            Error.NotFound(
+                code: "CreateSale.EmptySaleDetailProduct",
+                description: "No existe ese producto"
+            );
+        public static Error OutOfStock =>
+            Error.NotFound(
+                code: "CreateSale.OutOfStock",
+                description: "El producto no cuenta con stock"
+            );
     }
 
-    public static class SaleUpdate
+    public static class UpdateSale
     {
-        public static Error UpdateSale => Error.NotFound(
-            code: "SaleUpdate.EmptySale",
-            description: "No se encontro Venta que modificar"
-        );
+        public static Error UpdateSaleCancellation =>
+            Error.NotFound(
+                code: "UpdateSale.Cancellation",
+                description: "No se encontro Venta que modificar"
+            );
     }
 
-    public static class SaleDelete
+    public static class DeleteSale
     {
-        public static Error DeleteSale => Error.NotFound(
-            code: "SaleDelete.EmptySale",
-            description: "No se encontro Venta que eliminar"
-        );
+        public static Error DeleteSaleComplete =>
+            Error.NotFound(
+                code: "DeleteSale.Complete",
+                description: "No se encontro Venta que eliminar"
+            );
     }
 
-    public static class SaleGet
+    public static class GetSale
     {
-        public static Error GetSale => Error.NotFound(
-            code: "SaleDelete.EmptySale",
-            description: "No se encontro Venta que eliminar"
-        );
+        public static Error GetSaleOne =>
+            Error.NotFound(code: "GetSale.On", description: "No se encontro venta realizada");
     }
 }
